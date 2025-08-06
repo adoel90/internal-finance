@@ -42,8 +42,17 @@ export const GET = async (
   const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
   const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0, 23, 59, 59, 999);
 
-  const startDate = rawStartDate ? rawStartDate : firstDayOfMonth.toISOString();
-  const endDate = rawEndDate ? rawEndDate : lastDayOfMonth.toISOString();
+  // const startDate = rawStartDate ? rawStartDate : firstDayOfMonth.toISOString();
+  // const endDate = rawEndDate ? rawEndDate : lastDayOfMonth.toISOString();
+  const startDate = rawStartDate ? rawStartDate : firstDayOfMonth;
+  const endDate = rawEndDate ? rawEndDate : lastDayOfMonth;
+
+  console.log({
+    rawStartDate,
+    rawEndDate,
+    firstDayOfMonth,
+    lastDayOfMonth
+  })
   
 
   const pagination: any = {

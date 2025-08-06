@@ -6,8 +6,8 @@ import type {
   import createManagerWorkflow from "../../workflows/create-manager"
   
   type RequestBody = {
-    first_name?: string
-    last_name?: string
+    firstName?: string
+    lastName?: string
     email: string
   }
   
@@ -24,15 +24,33 @@ import type {
       )
     }
   
-    // const { result } = await createManagerWorkflow(req.scope)
-    //   .run({
-    //     input: {
-    //       manager: req.body,
-    //       authIdentityId: req.auth_context.auth_identity_id,
-    //     },
-    //   })
-    
-    //   res.status(200).json({ manager: result })
+
+      // Mengakses header, misal: 'x-custom-header'
+    // const customHeader = req.headers['x-custom-header'];
+
+    // // Contoh penggunaan header
+    // if (!customHeader) {
+    //   return res.status(400).json({ error: "Missing x-custom-header" });
+    // }
+
+
+      // Ambil header Authorization
+    const authorization = req.headers['authorization'];
+
+    // Contoh validasi: pastikan header Authorization ada
+    if (!authorization) {
+      return res.status(401).json({ error: "Missing Authorization header" });
+    }
+
+    if (req.auth_context.actor_id) {
+      throw new MedusaError(
+        MedusaError.Types.INVALID_DATA,
+        "Request already authenticated as a manager."
+      )
+    }
+
+
+
     const workflow = createManagerWorkflow(req.scope);
     const result = await workflow.run({
       input: {

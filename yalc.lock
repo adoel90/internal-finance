@@ -1,0 +1,13 @@
+{
+  "version": "v1",
+  "packages": {
+    "plugin-medusa-wishlist": {
+      "signature": "4a49867bb8b7f3b02fc132d2698fdf07",
+      "file": true
+    },
+    "medusa-wishlist-plugin": {
+      "signature": "861a46ebdaae46f1bb6a24e15ef952c1",
+      "file": true
+    }
+  }
+}

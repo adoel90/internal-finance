@@ -554,7 +554,6 @@ export type Cart = {
   updated_at: Scalars['DateTime']['output'];
   deleted_at: Maybe<Scalars['DateTime']['output']>;
   payment_collection_link: Maybe<LinkCartPaymentCollection>;
-  payment_collection: Maybe<PaymentCollection>;
   cart_link: Maybe<Array<Maybe<LinkCartPromotion>>>;
   promotions: Maybe<Array<Maybe<Promotion>>>;
   order_link: Maybe<LinkOrderCart>;
@@ -740,7 +739,6 @@ export type Region = {
   carts: Maybe<Array<Maybe<Cart>>>;
   orders: Maybe<Array<Maybe<Order>>>;
   payment_provider_link: Maybe<Array<Maybe<LinkRegionPaymentProvider>>>;
-  payment_providers: Maybe<Array<Maybe<PaymentProvider>>>;
 };
 
 export type Country = {
@@ -881,122 +879,6 @@ export type Currency = {
   created_at: Scalars['DateTime']['output'];
   updated_at: Scalars['DateTime']['output'];
   deleted_at: Maybe<Scalars['DateTime']['output']>;
-};
-
-export enum PaymentCollectionStatus {
-  NotPaid = 'not_paid',
-  Awaiting = 'awaiting',
-  Authorized = 'authorized',
-  PartiallyAuthorized = 'partially_authorized',
-  Canceled = 'canceled'
-}
-
-export enum PaymentSessionStatus {
-  Authorized = 'authorized',
-  Captured = 'captured',
-  Pending = 'pending',
-  RequiresMore = 'requires_more',
-  Error = 'error',
-  Canceled = 'canceled'
-}
-
-export type PaymentCollection = {
-  __typename?: 'PaymentCollection';
-  id: Scalars['ID']['output'];
-  currency_code: Scalars['String']['output'];
-  region_id: Scalars['String']['output'];
-  amount: Scalars['Float']['output'];
-  authorized_amount: Maybe<Scalars['Float']['output']>;
-  refunded_amount: Maybe<Scalars['Float']['output']>;
-  captured_amount: Maybe<Scalars['Float']['output']>;
-  completed_at: Maybe<Scalars['DateTime']['output']>;
-  created_at: Maybe<Scalars['DateTime']['output']>;
-  updated_at: Maybe<Scalars['DateTime']['output']>;
-  metadata: Maybe<Scalars['JSON']['output']>;
-  status: PaymentCollectionStatus;
-  cart_link: Maybe<LinkCartPaymentCollection>;
-  cart: Maybe<Cart>;
-  order_link: Maybe<LinkOrderPaymentCollection>;
-  order: Maybe<Order>;
-};
-
-export type Payment = {
-  __typename?: 'Payment';
-  id: Scalars['ID']['output'];
-  amount: Scalars['Float']['output'];
-  raw_amount: Maybe<Scalars['Float']['output']>;
-  authorized_amount: Maybe<Scalars['Float']['output']>;
-  raw_authorized_amount: Maybe<Scalars['Float']['output']>;
-  currency_code: Scalars['String']['output'];
-  provider_id: Scalars['String']['output'];
-  cart_id: Maybe<Scalars['String']['output']>;
-  order_id: Maybe<Scalars['String']['output']>;
-  order_edit_id: Maybe<Scalars['String']['output']>;
-  customer_id: Maybe<Scalars['String']['output']>;
-  data: Maybe<Scalars['JSON']['output']>;
-  created_at: Maybe<Scalars['DateTime']['output']>;
-  updated_at: Maybe<Scalars['DateTime']['output']>;
-  captured_at: Maybe<Scalars['DateTime']['output']>;
-  canceled_at: Maybe<Scalars['DateTime']['output']>;
-  captured_amount: Maybe<Scalars['Float']['output']>;
-  raw_captured_amount: Maybe<Scalars['Float']['output']>;
-  refunded_amount: Maybe<Scalars['Float']['output']>;
-  raw_refunded_amount: Maybe<Scalars['Float']['output']>;
-  payment_collection_id: Scalars['String']['output'];
-};
-
-export type Capture = {
-  __typename?: 'Capture';
-  id: Scalars['ID']['output'];
-  amount: Scalars['Float']['output'];
-  created_at: Scalars['DateTime']['output'];
-  created_by: Maybe<Scalars['String']['output']>;
-  payment: Payment;
-};
-
-export type Refund = {
-  __typename?: 'Refund';
-  id: Scalars['ID']['output'];
-  amount: Scalars['Float']['output'];
-  refund_reason_id: Maybe<Scalars['String']['output']>;
-  refund_reason: Maybe<RefundReason>;
-  note: Maybe<Scalars['String']['output']>;
-  created_at: Scalars['DateTime']['output'];
-  created_by: Maybe<Scalars['String']['output']>;
-  payment: Payment;
-};
-
-export type PaymentSession = {
-  __typename?: 'PaymentSession';
-  id: Scalars['ID']['output'];
-  amount: Scalars['Float']['output'];
-  currency_code: Scalars['String']['output'];
-  provider_id: Scalars['String']['output'];
-  data: Scalars['JSON']['output'];
-  context: Maybe<Scalars['JSON']['output']>;
-  status: PaymentSessionStatus;
-  authorized_at: Maybe<Scalars['DateTime']['output']>;
-  payment_collection_id: Scalars['String']['output'];
-  payment_collection: Maybe<PaymentCollection>;
-  payment: Maybe<Payment>;
-};
-
-export type PaymentProvider = {
-  __typename?: 'PaymentProvider';
-  id: Scalars['ID']['output'];
-  is_enabled: Scalars['String']['output'];
-  region_link: Maybe<Array<Maybe<LinkRegionPaymentProvider>>>;
-  regions: Maybe<Array<Maybe<Region>>>;
-};
-
-export type RefundReason = {
-  __typename?: 'RefundReason';
-  id: Scalars['ID']['output'];
-  label: Scalars['String']['output'];
-  description: Maybe<Scalars['String']['output']>;
-  metadata: Maybe<Scalars['JSON']['output']>;
-  created_at: Scalars['DateTime']['output'];
-  updated_at: Scalars['DateTime']['output'];
 };
 
 export enum ChangeActionType {
@@ -1322,7 +1204,6 @@ export type Order = {
   fulfillment_link: Maybe<Array<Maybe<LinkOrderFulfillment>>>;
   fulfillments: Maybe<Array<Maybe<Fulfillment>>>;
   payment_collections_link: Maybe<LinkOrderPaymentCollection>;
-  payment_collections: Maybe<Array<Maybe<PaymentCollection>>>;
   promotion_link: Maybe<LinkOrderPromotion>;
   promotion: Maybe<Array<Maybe<Promotion>>>;
   customer: Maybe<Customer>;
@@ -1517,7 +1398,6 @@ export type OrderDetail = {
   raw_original_shipping_total: Maybe<Scalars['JSON']['output']>;
   raw_original_shipping_subtotal: Maybe<Scalars['JSON']['output']>;
   raw_original_shipping_tax_total: Maybe<Scalars['JSON']['output']>;
-  payment_collections: Maybe<Array<Maybe<PaymentCollection>>>;
   payment_status: PaymentStatus;
   fulfillments: Maybe<Array<Maybe<Fulfillment>>>;
   fulfillment_status: FulfillmentStatus;
@@ -1898,6 +1778,91 @@ export type SaldoAvailable = {
   deleted_at: Maybe<Scalars['DateTime']['output']>;
 };
 
+export enum SaldoAllbankCurrencyCodeEnum {
+  Rp = 'RP',
+   = '_'
+}
+
+export type SaldoAllbank = {
+  __typename?: 'SaldoAllbank';
+  id: Scalars['ID']['output'];
+  nama_bank: Scalars['String']['output'];
+  no_rek: Scalars['Int']['output'];
+  atas_nama: Scalars['String']['output'];
+  keterangan: Maybe<Scalars['String']['output']>;
+  allowed_see: Maybe<Scalars['Boolean']['output']>;
+  currency_code: Maybe<SaldoAllbankCurrencyCodeEnum>;
+  amount_saldo: Scalars['Int']['output'];
+  updated_saldo_at: Scalars['DateTime']['output'];
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type SaldoAllrekening = {
+  __typename?: 'SaldoAllrekening';
+  id: Scalars['ID']['output'];
+  nama_bank: Scalars['String']['output'];
+  no_rek: Scalars['Int']['output'];
+  atas_nama: Scalars['String']['output'];
+  keterangan: Maybe<Scalars['String']['output']>;
+  allowed_see: Maybe<Scalars['Boolean']['output']>;
+  histories: Array<Maybe<SaldoHistory>>;
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type SaldoTersedia = {
+  __typename?: 'SaldoTersedia';
+  id: Scalars['ID']['output'];
+  nama_bank: Scalars['String']['output'];
+  no_rek: Scalars['Int']['output'];
+  atas_nama: Scalars['String']['output'];
+  keterangan: Maybe<Scalars['String']['output']>;
+  allowed_see: Maybe<Scalars['Boolean']['output']>;
+  histories_saldo_tersedia: Array<Maybe<SaldoHistoryTersedia>>;
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+};
+
+export enum SaldoHistoryTersediaCurrencyCodeEnum {
+  Rp = 'RP',
+   = '_'
+}
+
+export type SaldoHistoryTersedia = {
+  __typename?: 'SaldoHistoryTersedia';
+  id: Scalars['ID']['output'];
+  currency_code: Maybe<SaldoHistoryTersediaCurrencyCodeEnum>;
+  amount_saldo_history_tersedia_id: Scalars['String']['output'];
+  amountSaldoHistoryTersedia: SaldoTersedia;
+  amount: Scalars['Int']['output'];
+  updated_saldo_at: Maybe<Scalars['DateTime']['output']>;
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+};
+
+export enum SaldoHistoryCurrencyCodeEnum {
+  Rp = 'RP',
+   = '_'
+}
+
+export type SaldoHistory = {
+  __typename?: 'SaldoHistory';
+  id: Scalars['ID']['output'];
+  currency_code: Maybe<SaldoHistoryCurrencyCodeEnum>;
+  amount_saldo_id: Scalars['String']['output'];
+  amountSaldo: SaldoAllrekening;
+  amount: Scalars['Int']['output'];
+  updated_saldo_at: Maybe<Scalars['DateTime']['output']>;
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+};
+
 export enum PenerimaanCurrencyCodeEnum {
   Rp = 'RP',
    = '_'
@@ -2040,7 +2005,6 @@ export type LinkCartPaymentCollection = {
   cart_id: Scalars['String']['output'];
   payment_collection_id: Scalars['String']['output'];
   cart: Maybe<Cart>;
-  payment_collection: Maybe<Payment>;
   createdAt: Scalars['String']['output'];
   updatedAt: Scalars['String']['output'];
   deletedAt: Maybe<Scalars['String']['output']>;
@@ -2106,7 +2070,6 @@ export type LinkOrderPaymentCollection = {
   order_id: Scalars['String']['output'];
   payment_collection_id: Scalars['String']['output'];
   order: Maybe<Order>;
-  payment_collection: Maybe<Payment>;
   createdAt: Scalars['String']['output'];
   updatedAt: Scalars['String']['output'];
   deletedAt: Maybe<Scalars['String']['output']>;
@@ -2182,7 +2145,6 @@ export type LinkRegionPaymentProvider = {
   region_id: Scalars['String']['output'];
   payment_provider_id: Scalars['String']['output'];
   region: Maybe<Region>;
-  payment_provider: Maybe<Payment>;
   createdAt: Scalars['String']['output'];
   updatedAt: Scalars['String']['output'];
   deletedAt: Maybe<Scalars['String']['output']>;
@@ -2225,7 +2187,6 @@ export type LinkCustomerAccountHolder = {
   customer_id: Scalars['String']['output'];
   account_holder_id: Scalars['String']['output'];
   customer: Maybe<Customer>;
-  account_holder: Maybe<Payment>;
   createdAt: Scalars['String']['output'];
   updatedAt: Scalars['String']['output'];
   deletedAt: Maybe<Scalars['String']['output']>;
@@ -2348,20 +2309,6 @@ declare module '@medusajs/framework/types' {
     tax_providers: TaxProvider
     currency: Currency
     currencies: Currency
-    payment_method: any
-    payment_methods: any
-    payment: Payment
-    payments: Payment
-    payment_collection: PaymentCollection
-    payment_collections: PaymentCollection
-    payment_provider: PaymentProvider
-    payment_providers: PaymentProvider
-    payment_session: PaymentSession
-    payment_sessions: PaymentSession
-    refund_reason: RefundReason
-    refund_reasons: RefundReason
-    account_holder: any
-    account_holders: any
     order: Order
     orders: Order
     order_address: OrderAddress
@@ -2426,6 +2373,16 @@ declare module '@medusajs/framework/types' {
     managers: Manager
     saldo_available: SaldoAvailable
     saldo_availables: SaldoAvailable
+    saldo_allbank: SaldoAllbank
+    saldo_allbanks: SaldoAllbank
+    saldo_allrekening: SaldoAllrekening
+    saldo_allrekenings: SaldoAllrekening
+    saldo_tersedia: SaldoTersedia
+    saldo_tersedias: SaldoTersedia
+    saldo_history_tersedia: SaldoHistoryTersedia
+    saldo_history_tersedias: SaldoHistoryTersedia
+    saldo_history: SaldoHistory
+    saldo_histories: SaldoHistory
     penerimaan: Penerimaan
     penerimaans: Penerimaan
     pengeluaran: Pengeluaran

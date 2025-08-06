@@ -24,6 +24,18 @@ export default defineMiddlewares({
         }),
       ]
     },
+     {
+      matcher: "/manager*",      
+      middlewares: [  
+        (req, res, next) => {
+          const config = req.scope.resolve("configModule").projectConfig.http
+          return cors({
+            origin: parseCorsOrigins(config.storeCors),
+            credentials: true,
+          })(req, res, next)
+        },
+      ],
+    },
     {
       matcher: "/manager/me*",
       middlewares: [

@@ -2,7 +2,7 @@ import {
     AuthenticatedMedusaRequest,
     MedusaResponse,
   } from "@medusajs/framework/http"
-  import ActorModuleService from "../../../modules/actor/service"
+  
   
   export async function GET(
     req: AuthenticatedMedusaRequest,

@@ -1,5 +1,6 @@
 import { loadEnv, defineConfig } from '@medusajs/framework/utils'
 
+
 loadEnv(process.env.NODE_ENV || "development", process.cwd())
 
 module.exports = defineConfig({
@@ -15,7 +16,7 @@ module.exports = defineConfig({
   },
   modules: [
     {
-      resolve: "./src/modules/actor",
+      resolve: "./src/modules/manager",
     },
     {
       resolve: "./src/modules/saldo",
@@ -28,6 +29,9 @@ module.exports = defineConfig({
     },
     {
       resolve: "./src/modules/digital-product"
+    },
+    {
+      resolve: "./src/modules/payment"
     },
     {
       resolve: "@medusajs/fulfillment",
@@ -60,4 +64,23 @@ module.exports = defineConfig({
       },
     },
   ],
+  plugins: [
+    //   `medusa-fulfillment-manual`,
+    //  `medusa-payment-manual`,
+    // {
+    //   resolve: "./src/plugins/midtrans", // path relatif ke root project
+    //   options: {
+    //     // optional: konfigurasi tambahan untuk plugin
+    //   },
+    // },
+  ],
+  // admin: {
+  //   vite: () => {
+  //     return {
+  //       optimizeDeps: {
+  //         include: ["qs"],
+  //       },
+  //     };
+  //   },
+  // },
 })

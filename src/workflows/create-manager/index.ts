@@ -7,7 +7,7 @@ import {
   import { 
     setAuthAppMetadataStep,
   } from "@medusajs/medusa/core-flows"
-  import ActorModuleService from "../../modules/actor/service"
+  import ActorModuleService from "../../modules/manager/service"
   
   type CreateManagerWorkflowInput = {
     manager: {
