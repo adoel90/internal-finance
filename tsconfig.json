@@ -11,7 +11,7 @@
     "skipDefaultLibCheck": true,
     "declaration": true,
     "sourceMap": false,
-    "outDir": "./.medusa/server",
+    "outDir": ".medusa/server",
     "rootDir": "./",
     "baseUrl": ".",
     "jsx": "react-jsx",

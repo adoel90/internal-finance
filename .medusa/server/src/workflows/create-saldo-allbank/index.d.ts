@@ -1,0 +1,30 @@
+import { ISaldoAllBankInput } from "src/modules/saldo/types";
+export declare const createSaldoAllBankStep1: import("@medusajs/framework/workflows-sdk").StepFunction<ISaldoAllBankInput, {
+    id: string;
+    nama_bank: string;
+    no_rek: number;
+    atas_nama: string;
+    keterangan: string;
+    allowed_see: boolean;
+    currency_code: import("../../modules/cashflow/types").Currencies;
+    amount_saldo: number;
+    updated_saldo_at: Date;
+    created_at: Date;
+    updated_at: Date;
+    deleted_at: Date;
+}>;
+export declare const createSaldoAllBankWorkflow: import("@medusajs/framework/workflows-sdk").ReturnWorkflow<ISaldoAllBankInput, {
+    id: string;
+    nama_bank: string;
+    no_rek: number;
+    atas_nama: string;
+    keterangan: string;
+    allowed_see: boolean;
+    currency_code: import("../../modules/cashflow/types").Currencies;
+    amount_saldo: number;
+    updated_saldo_at: Date;
+    created_at: Date;
+    updated_at: Date;
+    deleted_at: Date;
+}, []>;
+export default createSaldoAllBankWorkflow;
