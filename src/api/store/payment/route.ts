@@ -28,10 +28,20 @@ export const POST = async (
         customer,
       });
 
+      // Check if result and token exist before accessing
+      if (!result || !result.token) {
+        console.error('Midtrans returned null or invalid response:', result);
+        res.status(500).json({ 
+          message: "Payment token generation failed", 
+          detail: "Invalid response from payment gateway" 
+        });
+        return;
+      }
+
       res.json({ token: result.token });
     } catch (err) {
       
-      console.error(err);
+      console.error('Payment service error:', err);
       res.status(500).json({ message: "Midtrans error", detail: err.message });
-    }    
+    }
 }

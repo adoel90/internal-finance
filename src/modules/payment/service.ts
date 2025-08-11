@@ -21,7 +21,7 @@ class PaymentModuleService {
     constructor() {
       
       this.snap = new midtransClient.Snap({
-        isProduction: false,
+        isProduction: process.env.NODE_ENV === 'production',
         serverKey: process.env.MIDTRANS_SERVER_KEY || "",
       });
     }
