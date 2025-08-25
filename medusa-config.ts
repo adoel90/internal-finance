@@ -40,10 +40,10 @@ module.exports = defineConfig({
     {
       resolve: "./src/modules/payment"
     },
-    {
-        resolve: "@medusajs/payment",
-        options: {},
-    },
+    // {
+    //     resolve: "@medusajs/payment",
+    //     options: {},
+    // },
     {
       resolve: "@medusajs/fulfillment",
       options: {
