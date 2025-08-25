@@ -37,8 +37,12 @@ module.exports = defineConfig({
     {
       resolve: "./src/modules/digital-product"
     },
+    // {
+    //   resolve: "./src/modules/payment"
+    // },
     {
-      resolve: "./src/modules/payment"
+        resolve: "@medusajs/payment",
+        options: {},
     },
     {
       resolve: "@medusajs/fulfillment",
@@ -70,6 +74,7 @@ module.exports = defineConfig({
         ],
       },
     },
+    
      {
       resolve: "@medusajs/medusa/cache-redis",
       options: {
