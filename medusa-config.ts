@@ -37,9 +37,9 @@ module.exports = defineConfig({
     {
       resolve: "./src/modules/digital-product"
     },
-    // {
-    //   resolve: "./src/modules/payment"
-    // },
+    {
+      resolve: "./src/modules/payment"
+    },
     {
         resolve: "@medusajs/payment",
         options: {},

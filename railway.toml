@@ -1,6 +1,6 @@
 [build]
 # Tidak perlu build ulang, cukup install dependency dari hasil `medusa build`
-command = "cd .medusa/server && npm install --omit=dev --force --legacy-peer-deps"
+command = "cd .medusa/server && npm install --omit=dev --force"
 
 
 [deploy]
