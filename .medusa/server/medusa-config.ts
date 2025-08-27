@@ -38,12 +38,41 @@ module.exports = defineConfig({
       resolve: "./src/modules/digital-product"
     },
     {
-      resolve: "./src/modules/payment"
+      resolve: "./src/modules/payment-direct-midtrans"
     },
+    // {
+    //   resolve: "./src/modules/payment"
+    // },
     // {
     //     resolve: "@medusajs/payment",
     //     options: {},
     // },
+    {
+      resolve: '@medusajs/medusa/payment',
+      options: {
+        providers: [
+          {
+            id: 'stripe',
+            resolve: '@medusajs/medusa/payment-stripe',
+            options: {
+              apiKey: process.env.STRIPE_API_KEY,
+              // webhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
+            },
+          },
+          {
+            id: 'midtrans',
+            resolve: './src/modules/payment',
+            options: {
+              apiKey: process.env.MIDTRANS_SERVER_KEY,
+              // webhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
+            },
+          },
+
+
+
+        ],
+      },
+    },
     {
       resolve: "@medusajs/fulfillment",
       options: {

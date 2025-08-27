@@ -1,12 +1,15 @@
 import PaymentModuleService from "./service"
-import { Module } from "@medusajs/framework/utils"
-import { ModuleProviderExports } from "@medusajs/framework/types"
-export const PAYMENT_MODULE = "payment"
+import { ModuleProvider, Modules } from "@medusajs/framework/utils"
+// export const PAYMENT_MODULE = "midtrans_payment"
 
-export default Module(PAYMENT_MODULE, {
-  service: PaymentModuleService,
+// export default Module(PAYMENT_MODULE, {
+//   services: [PaymentModuleService],
+// })
+
+
+export default ModuleProvider(Modules.PAYMENT, {
+  services: [PaymentModuleService]
 })
-
 
 // const services = [PaymentModuleService]
 
