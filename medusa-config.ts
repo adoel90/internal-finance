@@ -23,6 +23,18 @@ module.exports = defineConfig({
   },
   modules: [
     {
+      resolve: "./src/modules/member",
+    }, 
+    {
+      resolve: "./src/modules/role",
+    },  
+    {
+      resolve: "./src/modules/user",
+    },    
+    {
+      resolve: "./src/modules/staff",
+    },
+    {
       resolve: "./src/modules/manager",
     },
     {

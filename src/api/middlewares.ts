@@ -43,6 +43,51 @@ export default defineMiddlewares({
       ]
     },
     {
+      matcher: "/staff",
+      method: "POST",
+      middlewares: [
+        authenticate("staff", ["session", "bearer"], {
+          allowUnregistered: true,
+        }),
+      ]
+    },
+    {
+      matcher: "/staff/me*",
+      middlewares: [
+        authenticate("staff", ["session", "bearer"]),
+      ]
+    },
+    {
+      matcher: "/user",
+      method: "POST",
+      middlewares: [
+        authenticate("user", ["session", "bearer"], {
+          allowUnregistered: true,
+        }),
+      ]
+    },
+    {
+      matcher: "/user/me*",
+      middlewares: [
+        authenticate("user", ["session", "bearer"]),
+      ]
+    },
+    {
+      matcher: "/member",
+      method: "POST",
+      middlewares: [
+        authenticate("member", ["session", "bearer"], {
+          allowUnregistered: true,
+        }),
+      ]
+    },
+    {
+      matcher: "/member/me*",
+      middlewares: [
+        authenticate("member", ["session", "bearer"]),
+      ]
+    },
+    {
       matcher: "/admin/digital-products",
       method: "POST",
       middlewares: [
