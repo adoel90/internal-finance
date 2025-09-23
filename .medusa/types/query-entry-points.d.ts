@@ -1856,6 +1856,17 @@ export type WorkflowExecution = {
   deleted_at: Maybe<Scalars['DateTime']['output']>;
 };
 
+export type Member = {
+  __typename?: 'Member';
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  email: Scalars['String']['output'];
+  role_id: Scalars['String']['output'];
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+};
+
 export type Role = {
   __typename?: 'Role';
   id: Scalars['ID']['output'];
@@ -2510,6 +2521,8 @@ declare module '@medusajs/framework/types' {
     workflow_executions: WorkflowExecution
     file: any
     files: any
+    member: Member
+    members: Member
     role: Role
     roles: Role
     staff: Staff

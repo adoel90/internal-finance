@@ -62,3 +62,17 @@ import type {
     });
     res.json(result);
   }
+
+  export async function GET(
+    req: AuthenticatedMedusaRequest,
+    res: MedusaResponse
+  ): Promise<void> {
+    const query = req.scope.resolve("query")
+  
+    const { data: staffList } = await query.graph({
+      entity: "staff",
+      fields: ["*"],
+    })
+  
+    res.json({ staff: staffList })
+  }

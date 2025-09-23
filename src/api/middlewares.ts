@@ -43,6 +43,18 @@ export default defineMiddlewares({
       ]
     },
     {
+      matcher: "/staff*",      
+      middlewares: [  
+        (req, res, next) => {
+          const config = req.scope.resolve("configModule").projectConfig.http
+          return cors({
+            origin: parseCorsOrigins(config.storeCors),
+            credentials: true,
+          })(req, res, next)
+        },
+      ],
+    },
+    {
       matcher: "/staff",
       method: "POST",
       middlewares: [
