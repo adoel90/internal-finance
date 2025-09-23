@@ -47,14 +47,6 @@ export const GET = async (
   const startDate = rawStartDate ? rawStartDate : firstDayOfMonth;
   const endDate = rawEndDate ? rawEndDate : lastDayOfMonth;
 
-  console.log({
-    rawStartDate,
-    rawEndDate,
-    firstDayOfMonth,
-    lastDayOfMonth
-  })
-  
-
   const pagination: any = {
     order: {
       created_at: "DESC",

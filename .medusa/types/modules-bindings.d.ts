@@ -22,6 +22,9 @@ import type { IEventBusModuleService } from '@medusajs/framework/types'
 import type { IWorkflowEngineService } from '@medusajs/framework/types'
 import type { ILockingModule } from '@medusajs/framework/types'
 import type { IFileModuleService } from '@medusajs/framework/types'
+import type Member from '..\..\src\modules\member'
+import type Role from '..\..\src\modules\role'
+import type Staff from '..\..\src\modules\staff'
 import type Manager from '..\..\src\modules\manager'
 import type Saldo from '..\..\src\modules\saldo'
 import type Cashflow from '..\..\src\modules\cashflow'
@@ -55,6 +58,9 @@ declare module '@medusajs/framework/types' {
     'workflows': IWorkflowEngineService,
     'locking': ILockingModule,
     'file': IFileModuleService,
+    'member': InstanceType<(typeof Member)['service']>,
+    'role': InstanceType<(typeof Role)['service']>,
+    'staff': InstanceType<(typeof Staff)['service']>,
     'manager': InstanceType<(typeof Manager)['service']>,
     'saldo': InstanceType<(typeof Saldo)['service']>,
     'cashflow': InstanceType<(typeof Cashflow)['service']>,
