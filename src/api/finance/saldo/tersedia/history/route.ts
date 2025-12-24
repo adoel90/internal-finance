@@ -13,20 +13,12 @@ export const GET = async (
 
   const query = req.scope.resolve(ContainerRegistrationKeys.QUERY);
 
-  // const saldoModuleService : SaldoModuleService = req.scope.resolve(SALDO_MODULE);
-
   // Raw data
   const rawTake = parseInt(req.query.take as string);
   const rawSkip = parseInt(req.query.skip as string);
   const rawStartDate = req.query.start_date as string;
   const rawEndDate = req.query.end_date as string;
-  const rawAmountSaldoId = req.query.amount_saldo_id as string
-
-  const idArray = rawAmountSaldoId
-  .split(",")              // Pisah berdasarkan koma
-  .map(id => id.trim())    // Hilangkan spasi ekstra
-  .filter(Boolean) as [];  
-  
+  const rawAmountSaldoTersediaId = req.query.amount_saldo_tersedia_id as string;
 
 
     // Use default value if invalid or negative 
@@ -34,12 +26,6 @@ export const GET = async (
   const skip = Number.isInteger(rawSkip) && rawSkip >= 0 ? rawSkip : ""; //0 
 
 
-    //use default value if start_date or end_date is not provided
-  // const today = new Date();
-  // const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-
-
-  
   const today = new Date();  
   const hundredYearsAgo = new Date(today);
   hundredYearsAgo.setFullYear(today.getFullYear() - 100);
@@ -76,21 +62,13 @@ export const GET = async (
     
   };
 
-  if(rawAmountSaldoId !== "" && idArray.length > 0 ){
-        
-    filters.amount_saldo_id = {
-      $in: idArray      
+  if (rawAmountSaldoTersediaId) {
+    const idArray = rawAmountSaldoTersediaId.split(",").map(id => id.trim()).filter(Boolean);
+    if (idArray.length > 0) {
+        filters.amount_saldo_history_tersedia_id = {
+            $in: idArray
+        }
     }
-  }
-
-  if(rawAmountSaldoId !== "" && idArray.length == 0){
-
-    
-    filters.amount_saldo_id = {
-        $in: [rawAmountSaldoId]
-        // $in:["01JXF6X2Z2QKADGZR1EBA5WT83"]
-    }
-    
   }
   
   

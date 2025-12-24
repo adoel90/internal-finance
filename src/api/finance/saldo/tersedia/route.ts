@@ -76,7 +76,7 @@ export const GET = async (
         entity: "saldo_tersedia",
         fields: [
             "*",
-            "histories.*",
+            "histories_saldo_tersedia.*",
             // ...(fields || []),
         ],   
         
@@ -103,52 +103,34 @@ export const POST = async (
     req: MedusaRequest,
     res: MedusaResponse
   ) => {
+
+    const payload = req.body as ISaldoTersediaInput;
+
+    if (typeof payload.amount_saldo !== 'number') {
+      return res.status(400).json({ message: "amount_saldo is a required number field." });
+    }
+
     const workflow = createSaldoTersediaWorkflow(req.scope);
 
+    const response = await workflow.run({
+      input: payload
+    });
 
-    const result = await workflow.run({
-      input: req.body as ISaldoTersediaInput
-    }).then(async (response)  => {
+    if (response?.result) {
+      const amountSaldoId = response.result.id;
+      const historyWorkflow =  createSaldoHistoryTersediaWorkflow(req.scope);
 
-      if(response?.result){
+      // TODO: put Logger
+      // Fire-and-forget history creation
+      historyWorkflow.run({
+        input: {
+          amount_saldo_history_tersedia_id: amountSaldoId,            
+          amount: payload.amount_saldo,
+          updated_saldo_at: payload.updated_saldo_at,
+          currency_code: Currencies.ID
+        }
+      });
+    }
 
-        const payload = req.body as ISaldoTersediaInput
-
-        const amountSaldoId = response.result.id
-        const historyWorkflow =  await createSaldoHistoryTersediaWorkflow(req.scope);
-
-        // TODO: put Logger
-        const resultSaldoHistoryTersediaWorflow = historyWorkflow.run({
-          input: {
-            amount_saldo_id: amountSaldoId,            
-            amount: payload.amount_saldo,
-            updated_saldo_at: payload.updated_saldo_at,
-            currency_code: Currencies.ID
-
-          }
-        });
-
-        return res.json(response);
-
-        
-
-        
-      }    
-    })
-
-    
-    // console.log(result.result)
-    // amount_saldo_id: string
-    // amount_saldo: number
-    // updated_saldo_at: Date,
-    // currency_code?: Currencies
-    // req.body as ISaldoHistoryInput
-
-    
-
-
-
-
-
-    res.json(result);
+    res.json(response);
   }
