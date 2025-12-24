@@ -145,6 +145,7 @@ export const POST = async (
             input: {
               amount: payload.amount,
               amount_saldo_id: payload.amount_saldo_id,
+              // amount_saldo_history_tersedia_id: payload.amount_saldo_history_tersedia_id,
               updated_saldo_at: payload.updated_saldo_at,
               currency_code: payload.currency_code
             }

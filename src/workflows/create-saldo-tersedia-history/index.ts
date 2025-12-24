@@ -1,11 +1,11 @@
 import { createWorkflow, WorkflowResponse, WorkflowData, createStep, StepResponse } from "@medusajs/framework/workflows-sdk";
 import { SALDO_MODULE } from "src/modules/saldo";
 import SaldoModuleService from "src/modules/saldo/service";
-import { ISaldoHistoryInput } from "src/modules/saldo/types";
+import { ISaldoHistoryInput, ISaldoTersediaHistoryInput } from "src/modules/saldo/types";
 
 export const    creatStep1 = createStep(
     "step-1-create-saldo-history-tersedia",
-    async (input: ISaldoHistoryInput, { container }) => {
+    async (input: ISaldoTersediaHistoryInput, { container }) => {
         
         const saldoModuleService: SaldoModuleService = container.resolve(SALDO_MODULE);
         const saldoHistory = await saldoModuleService.createSaldoHistoryTersedias(input)
@@ -20,7 +20,7 @@ export const    creatStep1 = createStep(
 
 export const createSaldoHistoryTersediaWorkflow = createWorkflow(
     "create-saldo-history-tersedia",
-    (input: WorkflowData<ISaldoHistoryInput>) => {
+    (input: WorkflowData<ISaldoTersediaHistoryInput>) => {
 
         // Step 1: Create Saldo All Rekening
         const saldoHistory = creatStep1(input);

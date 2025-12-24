@@ -1,5 +1,5 @@
-import { ISaldoHistoryInput } from "src/modules/saldo/types";
-export declare const creatStep1: import("@medusajs/framework/workflows-sdk").StepFunction<ISaldoHistoryInput, {
+import { ISaldoTersediaHistoryInput } from "src/modules/saldo/types";
+export declare const creatStep1: import("@medusajs/framework/workflows-sdk").StepFunction<ISaldoTersediaHistoryInput, {
     id: string;
     currency_code: import("../../modules/cashflow/types").Currencies;
     amountSaldoHistoryTersedia: {
@@ -21,7 +21,7 @@ export declare const creatStep1: import("@medusajs/framework/workflows-sdk").Ste
     deleted_at: Date;
     amountSaldoHistoryTersedia_id: string;
 }>;
-export declare const createSaldoHistoryTersediaWorkflow: import("@medusajs/framework/workflows-sdk").ReturnWorkflow<ISaldoHistoryInput, {
+export declare const createSaldoHistoryTersediaWorkflow: import("@medusajs/framework/workflows-sdk").ReturnWorkflow<ISaldoTersediaHistoryInput, {
     id: string;
     currency_code: import("../../modules/cashflow/types").Currencies;
     amountSaldoHistoryTersedia: {

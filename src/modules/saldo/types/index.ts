@@ -23,6 +23,13 @@ export interface ISaldoTersediaInput extends ISaldoAllRekeningInput {}
 
 
 export type ISaldoHistoryInput = {
+  amount_saldo_id: string
+  updated_saldo_at: Date,
+  currency_code?: Currencies
+  amount: number
+}
+
+export type ISaldoTersediaHistoryInput = {
   amount_saldo_history_tersedia_id: string
   updated_saldo_at: Date,
   currency_code?: Currencies
