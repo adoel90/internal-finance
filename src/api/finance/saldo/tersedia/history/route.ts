@@ -1,8 +1,8 @@
 
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http";
 import { ContainerRegistrationKeys } from "@medusajs/framework/utils";
-import createSaldoHistorTersediaWorkflow from "src/workflows/create-saldo-history";
-import { ISaldoHistoryInput } from "src/modules/saldo/types";
+import createSaldoHistorTersediaWorkflow from "src/workflows/create-saldo-tersedia-history";
+import { ISaldoTersediaHistoryInput } from "src/modules/saldo/types";
 
 
 
@@ -104,7 +104,7 @@ export const POST = async (
   ) => {
     const workflow = createSaldoHistorTersediaWorkflow(req.scope);
     const result = await workflow.run({
-      input: req.body as ISaldoHistoryInput
+      input: req.body as ISaldoTersediaHistoryInput
     });
     res.json(result);
   }
