@@ -18,7 +18,7 @@ export const GET = async (req: MedusaRequest, res: MedusaResponse) => {
     }
 
     const response = await fetch(
-      `${baseUrlVercel}/domains/status?name=${name}`,
+      `${baseUrlVercel}/registrar/domains/${name}/availability`,      
       {
         method: "GET",
         headers: {
