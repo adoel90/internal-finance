@@ -1619,6 +1619,10 @@ export type User = {
   created_at: Scalars['DateTime']['output'];
   updated_at: Scalars['DateTime']['output'];
   deleted_at: Maybe<Scalars['DateTime']['output']>;
+  api_usage_link: Maybe<LinkUserUserBillingApiUsage>;
+  api_usage: Maybe<ApiUsage>;
+  company_link: Maybe<LinkUserUserBillingCompany>;
+  company: Maybe<Company>;
 };
 
 export enum GeoZoneType {
@@ -1851,6 +1855,71 @@ export type WorkflowExecution = {
   context: Maybe<Scalars['JSON']['output']>;
   state: WorkflowExecutionStateEnum;
   retention_time: Maybe<Scalars['Int']['output']>;
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type Profession = {
+  __typename?: 'Profession';
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type Company = {
+  __typename?: 'Company';
+  id: Scalars['ID']['output'];
+  user_id: Scalars['String']['output'];
+  company_name: Scalars['String']['output'];
+  company_logo: Maybe<Scalars['String']['output']>;
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+  user_link: Maybe<LinkUserUserBillingCompany>;
+  user: Maybe<User>;
+};
+
+export type ApiUsage = {
+  __typename?: 'ApiUsage';
+  id: Scalars['ID']['output'];
+  user_id: Scalars['String']['output'];
+  api_key_id: Scalars['String']['output'];
+  api_name: Scalars['String']['output'];
+  date: Scalars['DateTime']['output'];
+  request_count: Scalars['Int']['output'];
+  success_count: Scalars['Int']['output'];
+  failed_count: Scalars['Int']['output'];
+  plan_id: Maybe<Scalars['String']['output']>;
+  metadata: Maybe<Scalars['JSON']['output']>;
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+  user_link: Maybe<LinkUserUserBillingApiUsage>;
+  user: Maybe<User>;
+};
+
+export type Subscription = {
+  __typename?: 'Subscription';
+  id: Scalars['ID']['output'];
+  organization_id: Scalars['String']['output'];
+  plan_id: Scalars['String']['output'];
+  plan: Plan;
+  current_period_start: Scalars['DateTime']['output'];
+  current_period_end: Scalars['DateTime']['output'];
+  started_at: Scalars['DateTime']['output'];
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type Plan = {
+  __typename?: 'Plan';
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  subscriptions: Array<Maybe<Subscription>>;
   created_at: Scalars['DateTime']['output'];
   updated_at: Scalars['DateTime']['output'];
   deleted_at: Maybe<Scalars['DateTime']['output']>;
@@ -2354,6 +2423,26 @@ export type LinkDigitalProductDigitalProductProductProductVariant = {
   deletedAt: Maybe<Scalars['String']['output']>;
 };
 
+export type LinkUserUserBillingApiUsage = {
+  __typename?: 'LinkUserUserBillingApiUsage';
+  user_id: Scalars['String']['output'];
+  api_usage_id: Scalars['String']['output'];
+  user: Maybe<User>;
+  createdAt: Scalars['String']['output'];
+  updatedAt: Scalars['String']['output'];
+  deletedAt: Maybe<Scalars['String']['output']>;
+};
+
+export type LinkUserUserBillingCompany = {
+  __typename?: 'LinkUserUserBillingCompany';
+  user_id: Scalars['String']['output'];
+  company_id: Scalars['String']['output'];
+  user: Maybe<User>;
+  createdAt: Scalars['String']['output'];
+  updatedAt: Scalars['String']['output'];
+  deletedAt: Maybe<Scalars['String']['output']>;
+};
+
 declare module '@medusajs/framework/types' {
   interface RemoteQueryEntryPoints {
     stock_location_address: StockLocationAddress
@@ -2521,6 +2610,16 @@ declare module '@medusajs/framework/types' {
     workflow_executions: WorkflowExecution
     file: any
     files: any
+    profession: Profession
+    professions: Profession
+    company: Company
+    companies: Company
+    api_usage: ApiUsage
+    api_usages: ApiUsage
+    subscription: Subscription
+    subscriptions: Subscription
+    plan: Plan
+    plans: Plan
     member: Member
     members: Member
     role: Role
@@ -2593,5 +2692,7 @@ declare module '@medusajs/framework/types' {
     customer_account_holders: LinkCustomerAccountHolder
     digital_product_order_order: LinkDigitalProductDigitalProductOrderOrderOrder
     digital_product_product_variant: LinkDigitalProductDigitalProductProductProductVariant
+    user_api_usage: LinkUserUserBillingApiUsage
+    user_company: LinkUserUserBillingCompany
   }
 }

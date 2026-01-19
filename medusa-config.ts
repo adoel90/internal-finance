@@ -23,6 +23,12 @@ module.exports = defineConfig({
   },
   modules: [
     {
+      resolve: "./src/modules/scrape",
+    },
+    {
+      resolve: "./src/modules/billing",
+    },
+    {
       resolve: "./src/modules/member",
     }, 
     {
