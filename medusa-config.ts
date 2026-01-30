@@ -82,14 +82,14 @@ module.exports = defineConfig({
               // webhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
             },
           },
-          {
-            resolve: './src/modules/payment',
-            id: 'midtrans',
-            options: {
-              apiKey: process.env.MIDTRANS_SERVER_KEY,
-              // webhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
-            },
-          },
+          // {
+          //   resolve: './src/modules/payment',
+          //   id: 'midtrans',
+          //   options: {
+          //     apiKey: process.env.MIDTRANS_SERVER_KEY,
+          //     // webhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
+          //   },
+          // },
           {
             resolve: PaymentDirectBsiService,
             id: 'BSI',
