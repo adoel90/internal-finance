@@ -1,4 +1,4 @@
-# Project Overview Amazing
+# Project Overview Amazing Wew
 
 
 This is the backend for an Internal Finance App, built using the Medusa.js e-commerce framework. It appears to be heavily customized to handle digital products and has a role-based user system.
