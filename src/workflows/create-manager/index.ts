@@ -7,7 +7,7 @@ import {
   import { 
     setAuthAppMetadataStep,
   } from "@medusajs/medusa/core-flows"
-  import ActorModuleService from "../../modules/manager/service"
+  import ManagerModuleService from "../../modules/manager/service"
   
   type CreateManagerWorkflowInput = {
     manager: {
@@ -24,7 +24,7 @@ import {
       manager: managerData,
     }: Pick<CreateManagerWorkflowInput, "manager">, 
     { container }) => {
-      const managerModuleService: ActorModuleService = 
+      const managerModuleService: ManagerModuleService = 
         container.resolve("manager")
   
       const manager = await managerModuleService.createManagers(

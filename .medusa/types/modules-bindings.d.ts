@@ -22,6 +22,8 @@ import type { IEventBusModuleService } from '@medusajs/framework/types'
 import type { IWorkflowEngineService } from '@medusajs/framework/types'
 import type { ILockingModule } from '@medusajs/framework/types'
 import type { IFileModuleService } from '@medusajs/framework/types'
+import type Scrape from '..\..\src\modules\scrape'
+import type Billing from '..\..\src\modules\billing'
 import type Member from '..\..\src\modules\member'
 import type Role from '..\..\src\modules\role'
 import type Staff from '..\..\src\modules\staff'
@@ -58,6 +60,8 @@ declare module '@medusajs/framework/types' {
     'workflows': IWorkflowEngineService,
     'locking': ILockingModule,
     'file': IFileModuleService,
+    'scrape': InstanceType<(typeof Scrape)['service']>,
+    'billing': InstanceType<(typeof Billing)['service']>,
     'member': InstanceType<(typeof Member)['service']>,
     'role': InstanceType<(typeof Role)['service']>,
     'staff': InstanceType<(typeof Staff)['service']>,
