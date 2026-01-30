@@ -1,7 +1,9 @@
 import { loadEnv, defineConfig } from '@medusajs/framework/utils'
-
+import PaymentDirectBsiService from "./src/modules/payment-direct-bsi"
 
 loadEnv(process.env.NODE_ENV || "development", process.cwd())
+
+
 
 module.exports = defineConfig({
   projectConfig: {
@@ -59,6 +61,9 @@ module.exports = defineConfig({
       resolve: "./src/modules/payment-direct-midtrans"
     },
     // {
+    //   resolve: "./src/modules/payment-direct-bsi"
+    // },
+    // {
     //   resolve: "./src/modules/payment"
     // },
     // {
@@ -70,20 +75,25 @@ module.exports = defineConfig({
       options: {
         providers: [
           {
+            resolve: '@medusajs/payment-stripe',
             id: 'stripe',
-            resolve: '@medusajs/medusa/payment-stripe',
             options: {
               apiKey: process.env.STRIPE_API_KEY,
               // webhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
             },
           },
           {
-            id: 'midtrans',
             resolve: './src/modules/payment',
+            id: 'midtrans',
             options: {
               apiKey: process.env.MIDTRANS_SERVER_KEY,
               // webhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
             },
+          },
+          {
+            resolve: PaymentDirectBsiService,
+            id: 'BSI',
+            options: {},
           },
 
 
