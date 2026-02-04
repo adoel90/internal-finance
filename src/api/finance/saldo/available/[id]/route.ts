@@ -1,7 +1,7 @@
 import { MedusaRequest, MedusaResponse} from "@medusajs/framework"
   import { ContainerRegistrationKeys } from "@medusajs/framework/utils"
 
-import { updateSaldoAvailableWorkflow } from "src/workflows/update-saldo-available"
+import { updateSaldoAvailableWorkflow } from "../../../../../workflows/update-saldo-available"
 
 interface UpdateSaldoAvailableBody {
     amount: number    

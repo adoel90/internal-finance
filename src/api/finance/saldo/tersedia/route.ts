@@ -1,11 +1,11 @@
 
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http";
 import { ContainerRegistrationKeys } from "@medusajs/framework/utils";
-import createSaldoTersediaWorkflow from "src/workflows/create-saldo-tersedia";
-import { ISaldoAllRekeningInput, ISaldoTersediaInput } from "src/modules/saldo/types";
+import createSaldoTersediaWorkflow from "../../../../workflows/create-saldo-tersedia";
+import { ISaldoAllRekeningInput, ISaldoTersediaInput } from "../../../../modules/saldo/types";
 
-import createSaldoHistoryTersediaWorkflow from "src/workflows/create-saldo-tersedia-history";
-import { Currencies } from "src/modules/cashflow/types";
+import createSaldoHistoryTersediaWorkflow from "../../../../workflows/create-saldo-tersedia-history";
+import { Currencies } from "../../../../modules/cashflow/types";
 
 export const GET = async (
     req: MedusaRequest,

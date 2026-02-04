@@ -3,8 +3,8 @@ import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http";
 import { ContainerRegistrationKeys } from "@medusajs/framework/utils";
 // import { SALDO_MODULE } from "src/modules/saldo";
 // import SaldoModuleService from "src/modules/saldo/service";
-import createSaldoHistoryWorkflow from "src/workflows/create-saldo-history";
-import { ISaldoHistoryInput } from "src/modules/saldo/types";
+import createSaldoHistoryWorkflow from "../../../../../workflows/create-saldo-history";
+import { ISaldoHistoryInput } from "../../../../../modules/saldo/types";
 
 
 

@@ -1,8 +1,8 @@
 
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http";
 import { ContainerRegistrationKeys } from "@medusajs/framework/utils";
-import createSaldoHistorTersediaWorkflow from "src/workflows/create-saldo-tersedia-history";
-import { ISaldoTersediaHistoryInput } from "src/modules/saldo/types";
+import createSaldoHistorTersediaWorkflow from "../../../../../workflows/create-saldo-tersedia-history";
+import { ISaldoTersediaHistoryInput } from "../../../../../modules/saldo/types";
 
 
 

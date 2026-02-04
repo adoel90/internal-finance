@@ -1,9 +1,9 @@
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http";
 import { ContainerRegistrationKeys } from "@medusajs/framework/utils";
-import { SALDO_MODULE } from "src/modules/saldo";
-import SaldoModuleService from "src/modules/saldo/service";
-import createSaldoAvailableWorkflow from "src/workflows/create-saldo-available";
-import { ISaldoAvailableInput } from "src/modules/cashflow/types";
+import { SALDO_MODULE } from "../../../../modules/saldo";
+import SaldoModuleService from "../../../../modules/saldo/service";
+import createSaldoAvailableWorkflow from "../../../../workflows/create-saldo-available";
+import { ISaldoAvailableInput } from "../../../../modules/cashflow/types";
 
 export const GET = async (
     req: MedusaRequest,
