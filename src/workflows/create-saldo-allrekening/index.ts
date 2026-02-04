@@ -32,7 +32,7 @@ export const createSaldoHistoryStep = createStep(
   "step-2-create-saldo-history",
   async ({ saldoRekening, payload }: CreateSaldoHistoryStepInput, { container }) => {
     
-    const result = await createSaldoHistoryWorkflow.run({
+    const result = await createSaldoHistoryWorkflow(container).run({
       input: {
         amount: payload.amount_saldo,
         amount_saldo_id: saldoRekening.id,
