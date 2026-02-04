@@ -1,5 +1,5 @@
-import { ISaldoAllRekeningInput } from "src/modules/saldo/types";
-import { Currencies } from "src/modules/cashflow/types";
+import { ISaldoAllRekeningInput } from "../../modules/saldo/types";
+import { Currencies } from "../../modules/cashflow/types";
 export declare const createSaldoAllRekeningStep1: import("@medusajs/framework/workflows-sdk").StepFunction<ISaldoAllRekeningInput, {
     id: string;
     nama_bank: string;

@@ -1,9 +1,9 @@
 import { createWorkflow, WorkflowResponse, WorkflowData, createStep, StepResponse } from "@medusajs/framework/workflows-sdk";
-import { SALDO_MODULE } from "src/modules/saldo";
-import SaldoModuleService from "src/modules/saldo/service";
-import { ISaldoAllRekeningInput } from "src/modules/saldo/types";
-import createSaldoHistoryWorkflow from "src/workflows/create-saldo-history"
-import { Currencies } from "src/modules/cashflow/types";
+import { SALDO_MODULE } from "../../modules/saldo";
+import SaldoModuleService from "../../modules/saldo/service";
+import { ISaldoAllRekeningInput } from "../../modules/saldo/types";
+import createSaldoHistoryWorkflow from "../../workflows/create-saldo-history"
+import { Currencies } from "../../modules/cashflow/types";
 
 export const createSaldoAllRekeningStep1 = createStep(
     "step-1-create-saldo-all-rekening",
