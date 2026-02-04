@@ -14,111 +14,117 @@ export const GET = async (
   ) => {
 
   const query = req.scope.resolve(ContainerRegistrationKeys.QUERY);
+  const logger = req.scope.resolve(ContainerRegistrationKeys.LOGGER);
 
-  // const saldoModuleService : SaldoModuleService = req.scope.resolve(SALDO_MODULE);
+  try {
+    // const saldoModuleService : SaldoModuleService = req.scope.resolve(SALDO_MODULE);
 
-  // Raw data
-  const rawTake = parseInt(req.query.take as string);
-  const rawSkip = parseInt(req.query.skip as string);
-  const rawStartDate = req.query.start_date as string;
-  const rawEndDate = req.query.end_date as string;
-  const rawAmountSaldoId = req.query.amount_saldo_id as string
+    // Raw data
+    const rawTake = parseInt(req.query.take as string);
+    const rawSkip = parseInt(req.query.skip as string);
+    const rawStartDate = req.query.start_date as string;
+    const rawEndDate = req.query.end_date as string;
+    const rawAmountSaldoId = req.query.amount_saldo_id as string
 
-  const idArray = rawAmountSaldoId
-  .split(",")              // Pisah berdasarkan koma
-  .map(id => id.trim())    // Hilangkan spasi ekstra
-  .filter(Boolean) as [];  
-  
-
-
-    // Use default value if invalid or negative 
-  const take = Number.isInteger(rawTake) && rawTake > 0 ? rawTake : ""; //10
-  const skip = Number.isInteger(rawSkip) && rawSkip >= 0 ? rawSkip : ""; //0 
-
-
-    //use default value if start_date or end_date is not provided
-  // const today = new Date();
-  // const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-
-
-  
-  const today = new Date();  
-  const hundredYearsAgo = new Date(today);
-  hundredYearsAgo.setFullYear(today.getFullYear() - 100);
-  const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0, 23, 59, 59, 999);
-  
-  const startDate = rawStartDate ? new Date(rawStartDate) : new Date(hundredYearsAgo);
-
-  const endDateFormated = new Date(rawEndDate);
-
-  const endDate = rawEndDate ? new Date(Date.UTC(endDateFormated.getFullYear(), endDateFormated.getMonth(), endDateFormated.getDate(), 16, 59, 59, 999)) : lastDayOfMonth;
-
-      
-  const pagination: any = {
-      order: {
-        created_at: "DESC",
-      },
-  }
-
-  if (take !== "") {
-      pagination.take = take;
-  }
-
-  if (skip !== "") {
-      pagination.skip = skip;
-  }
-
-
-
-  const filters: any = {
-      updated_saldo_at: {      
-          $gt: startDate.toISOString(),
-          $lt: endDate.toISOString(),
-      },
+    const idArray = rawAmountSaldoId
+    .split(",")              // Pisah berdasarkan koma
+    .map(id => id.trim())    // Hilangkan spasi ekstra
+    .filter(Boolean) as [];  
     
-  };
 
-  if(rawAmountSaldoId !== "" && idArray.length > 0 ){
+
+      // Use default value if invalid or negative 
+    const take = Number.isInteger(rawTake) && rawTake > 0 ? rawTake : ""; //10
+    const skip = Number.isInteger(rawSkip) && rawSkip >= 0 ? rawSkip : ""; //0 
+
+
+      //use default value if start_date or end_date is not provided
+    // const today = new Date();
+    // const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+
+
+    
+    const today = new Date();  
+    const hundredYearsAgo = new Date(today);
+    hundredYearsAgo.setFullYear(today.getFullYear() - 100);
+    const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0, 23, 59, 59, 999);
+    
+    const startDate = rawStartDate ? new Date(rawStartDate) : new Date(hundredYearsAgo);
+
+    const endDateFormated = new Date(rawEndDate);
+
+    const endDate = rawEndDate ? new Date(Date.UTC(endDateFormated.getFullYear(), endDateFormated.getMonth(), endDateFormated.getDate(), 16, 59, 59, 999)) : lastDayOfMonth;
+
         
-    filters.amount_saldo_id = {
-      $in: idArray      
+    const pagination: any = {
+        order: {
+          created_at: "DESC",
+        },
     }
-  }
 
-  if(rawAmountSaldoId !== "" && idArray.length == 0){
+    if (take !== "") {
+        pagination.take = take;
+    }
 
-    
-    filters.amount_saldo_id = {
-        $in: [rawAmountSaldoId]
-        // $in:["01JXF6X2Z2QKADGZR1EBA5WT83"]
+    if (skip !== "") {
+        pagination.skip = skip;
+    }
+
+
+
+    const filters: any = {
+        updated_saldo_at: {      
+            $gt: startDate.toISOString(),
+            $lt: endDate.toISOString(),
+        },
+      
+    };
+
+    if(rawAmountSaldoId !== "" && idArray.length > 0 ){
+          
+      filters.amount_saldo_id = {
+        $in: idArray      
+      }
+    }
+
+    if(rawAmountSaldoId !== "" && idArray.length == 0){
+
+      
+      filters.amount_saldo_id = {
+          $in: [rawAmountSaldoId]
+          // $in:["01JXF6X2Z2QKADGZR1EBA5WT83"]
+      }
+      
     }
     
+    logger.info(`Fetching saldo history with filters: ${JSON.stringify(filters)}, pagination: ${JSON.stringify(pagination)}`);
+
+    const result = await query.graph({
+        entity: "saldo_history",
+        fields: [
+            "*"          
+        ],   
+        
+        
+        pagination,
+        filters
+    });
+
+    logger.info(`Fetched ${result.data.length} saldo history records.`);
+
+    res.json({
+      saldo_history: result.data,
+        pagination: {
+            take: take,
+            skip: skip,
+            total: result.metadata?.count || result?.data?.length || 0
+        },
+        filters
+    });
+  } catch (error) {
+    logger.error(`Error fetching saldo history: ${error}`);
+    res.status(500).json({ message: "Internal Server Error", error: error });
   }
-  
-  
-
-  const result = await query.graph({
-      entity: "saldo_history",
-      fields: [
-          "*"          
-      ],   
-      
-      
-      pagination,
-      filters
-  });
-
-  
-
-  res.json({
-    saldo_history: result.data,
-      pagination: {
-          take: take,
-          skip: skip,
-          total: result.metadata?.count || result?.data?.length || 0
-      },
-      filters
-  });
 }
 
 
@@ -134,25 +140,37 @@ export const POST = async (
     req: MedusaRequest,
     res: MedusaResponse
   ) => {
-    const workflow = createSaldoHistoryWorkflow(req.scope);
+    const logger = req.scope.resolve(ContainerRegistrationKeys.LOGGER);
+    
+    try {
+      const workflow = createSaldoHistoryWorkflow(req.scope);
 
 
-    // {"amount_saldo_id":"01JYQ7F2BDDDEH0F0M4DNWV09W","amount":"30000","updated_saldo_at":"2025-06-26T23:11:00.000Z","currency_code":"Rp"}
-    const payload = req.body as ISaldoHistoryInput    
+      // {"amount_saldo_id":"01JYQ7F2BDDDEH0F0M4DNWV09W","amount":"30000","updated_saldo_at":"2025-06-26T23:11:00.000Z","currency_code":"Rp"}
+      const payload = req.body as ISaldoHistoryInput    
 
-    const result = await workflow.run(
-      {
-            input: {
-              amount: payload.amount,
-              amount_saldo_id: payload.amount_saldo_id,
-              // amount_saldo_history_tersedia_id: payload.amount_saldo_history_tersedia_id,
-              updated_saldo_at: payload.updated_saldo_at,
-              currency_code: payload.currency_code
-            }
-          }    
-    //   {
-    //   input: req.body as ISaldoHistoryInput
-    // }
-  );
-    res.json(result);
+      logger.info(`Creating saldo history with payload: ${JSON.stringify(payload)}`);
+
+      const result = await workflow.run(
+        {
+              input: {
+                amount: payload.amount,
+                amount_saldo_id: payload.amount_saldo_id,
+                // amount_saldo_history_tersedia_id: payload.amount_saldo_history_tersedia_id,
+                updated_saldo_at: payload.updated_saldo_at,
+                currency_code: payload.currency_code
+              }
+            }    
+      //   {
+      //   input: req.body as ISaldoHistoryInput
+      // }
+    );
+      
+      logger.info(`Saldo history created successfully.`);
+
+      res.json(result);
+    } catch (error) {
+      logger.error(`Error creating saldo history: ${error}`);
+      res.status(500).json({ message: "Internal Server Error", error: error });
+    }
   }

@@ -58,6 +58,9 @@ module.exports = defineConfig({
       resolve: "./src/modules/digital-product"
     },
     {
+      resolve: "./src/modules/payment-proof"
+    },
+    {
       resolve: "./src/modules/payment-direct-midtrans"
     },
     // {

@@ -114,6 +114,13 @@ export default defineMiddlewares({
       ]
     },
     {
+      matcher: "/store/payment/upload-payment-proof",
+      method: "POST",
+      middlewares: [
+        upload.array("files"),
+      ]
+    },
+    {
       matcher: "/finance*",
       middlewares: [
         (

@@ -2205,6 +2205,26 @@ export type DigitalProductOrder = {
   order: Maybe<Order>;
 };
 
+export enum PaymentProofStatusEnum {
+  Pending = 'PENDING',
+  Verified = 'VERIFIED',
+  Rejected = 'REJECTED'
+}
+
+export type PaymentProof = {
+  __typename?: 'PaymentProof';
+  id: Scalars['ID']['output'];
+  cart_id: Maybe<Scalars['String']['output']>;
+  file_key: Scalars['String']['output'];
+  file_url: Maybe<Scalars['String']['output']>;
+  uploaded_by: Maybe<Scalars['String']['output']>;
+  status: PaymentProofStatusEnum;
+  note: Maybe<Scalars['String']['output']>;
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+};
+
 export type LinkCartPaymentCollection = {
   __typename?: 'LinkCartPaymentCollection';
   cart_id: Scalars['String']['output'];
@@ -2654,6 +2674,8 @@ declare module '@medusajs/framework/types' {
     digital_product_medias: DigitalProductMedia
     digital_product_order: DigitalProductOrder
     digital_product_orders: DigitalProductOrder
+    payment_proof: PaymentProof
+    payment_proofs: PaymentProof
     cart_payment_collection: LinkCartPaymentCollection
     cart_payment_collections: LinkCartPaymentCollection
     cart_promotion: LinkCartPromotion

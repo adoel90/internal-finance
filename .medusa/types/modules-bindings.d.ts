@@ -32,6 +32,7 @@ import type Saldo from '..\..\src\modules\saldo'
 import type Cashflow from '..\..\src\modules\cashflow'
 import type Blog from '..\..\src\modules\blog'
 import type DigitalProduct from '..\..\src\modules\digital-product'
+import type PaymentProof from '..\..\src\modules\payment-proof'
 import type MidtransPaymentDirect from '..\..\src\modules\payment-direct-midtrans'
 
 declare module '@medusajs/framework/types' {
@@ -70,6 +71,7 @@ declare module '@medusajs/framework/types' {
     'cashflow': InstanceType<(typeof Cashflow)['service']>,
     'blog': InstanceType<(typeof Blog)['service']>,
     'digitalProduct': InstanceType<(typeof DigitalProduct)['service']>,
+    'payment_proof': InstanceType<(typeof PaymentProof)['service']>,
     'midtrans_payment_direct': InstanceType<(typeof MidtransPaymentDirect)['service']>
   }
 }
