@@ -1,3 +1,11 @@
+/**
+ *
+ *
+ *
+ * TODO: WILL BE REMOVE DUE TO DEPRECATED
+ *
+ *
+ */
 import { Currencies } from "src/modules/cashflow/types";
 declare const SaldoAllbank: import("@medusajs/framework/utils").DmlEntity<import("@medusajs/framework/utils").DMLEntitySchemaBuilder<{
     id: import("@medusajs/framework/utils").PrimaryKeyModifier<string, import("@medusajs/framework/utils").IdProperty>;

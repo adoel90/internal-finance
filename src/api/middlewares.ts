@@ -117,6 +117,10 @@ export default defineMiddlewares({
       matcher: "/store/payment/upload-payment-proof",
       method: "POST",
       middlewares: [
+        (req, res, next) => {
+          console.log("Middleware hitting /store/payment/upload-payment-proof");
+          next();
+        },
         upload.array("files"),
       ]
     },

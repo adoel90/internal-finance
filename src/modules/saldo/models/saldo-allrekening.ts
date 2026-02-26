@@ -5,7 +5,7 @@ import SaldoHistory from "./saldo-history"
 const SaldoAllrekening = model.define("saldo_allrekening", {
     id: model.id().primaryKey(),
     nama_bank:model.text(),
-    no_rek: model.number(),   
+    no_rek: model.text(),   
     atas_nama: model.text(),
     keterangan: model.text().nullable(),
     allowed_see: model.boolean().nullable(),     

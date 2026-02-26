@@ -2,7 +2,7 @@ import { ISaldoAllRekeningInput, ISaldoTersediaInput } from "src/modules/saldo/t
 export declare const createSaldoTersediaStep1: import("@medusajs/framework/workflows-sdk").StepFunction<ISaldoTersediaInput, {
     id: string;
     nama_bank: string;
-    no_rek: number;
+    no_rek: string;
     atas_nama: string;
     keterangan: string;
     allowed_see: boolean;
@@ -24,7 +24,7 @@ export declare const createSaldoTersediaStep1: import("@medusajs/framework/workf
 export declare const createSaldoTersediaWorkflow: import("@medusajs/framework/workflows-sdk").ReturnWorkflow<ISaldoAllRekeningInput, {
     id: string;
     nama_bank: string;
-    no_rek: number;
+    no_rek: string;
     atas_nama: string;
     keterangan: string;
     allowed_see: boolean;

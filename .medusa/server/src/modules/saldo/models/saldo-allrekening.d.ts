@@ -1,7 +1,7 @@
 declare const SaldoAllrekening: import("@medusajs/framework/utils").DmlEntity<import("@medusajs/framework/utils").DMLEntitySchemaBuilder<{
     id: import("@medusajs/framework/utils").PrimaryKeyModifier<string, import("@medusajs/framework/utils").IdProperty>;
     nama_bank: import("@medusajs/framework/utils").TextProperty;
-    no_rek: import("@medusajs/framework/utils").NumberProperty;
+    no_rek: import("@medusajs/framework/utils").TextProperty;
     atas_nama: import("@medusajs/framework/utils").TextProperty;
     keterangan: import("@medusajs/framework/utils").NullableModifier<string, import("@medusajs/framework/utils").TextProperty>;
     allowed_see: import("@medusajs/framework/utils").NullableModifier<boolean, import("@medusajs/framework/utils").BooleanProperty>;

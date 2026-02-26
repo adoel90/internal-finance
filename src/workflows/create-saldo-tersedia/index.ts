@@ -8,7 +8,10 @@ export const createSaldoTersediaStep1 = createStep(
     async (input: ISaldoTersediaInput, { container }) => {
 
         const saldoModuleService: SaldoModuleService = container.resolve(SALDO_MODULE);
-        const saldoTersedia = await saldoModuleService.createSaldoTersedias(input)
+        const saldoTersedia = await saldoModuleService.createSaldoTersedias({
+            ...input,
+            no_rek: String(input.no_rek)
+        })
 
 
         // const logger = container.resolve("logger");

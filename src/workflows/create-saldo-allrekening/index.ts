@@ -9,7 +9,10 @@ export const createSaldoAllRekeningStep1 = createStep(
     "step-1-create-saldo-all-rekening",
     async (input: ISaldoAllRekeningInput, { container }) => {
         const saldoModuleService: SaldoModuleService = container.resolve(SALDO_MODULE);
-        const saldoAllRekeningBank = await saldoModuleService.createSaldoAllrekenings(input)
+        const saldoAllRekeningBank = await saldoModuleService.createSaldoAllrekenings({
+            ...input,
+            no_rek: String(input.no_rek)
+        })
 
         return new StepResponse(saldoAllRekeningBank);
     },

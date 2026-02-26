@@ -5,7 +5,7 @@ export declare const creatStep1: import("@medusajs/framework/workflows-sdk").Ste
     amountSaldoHistoryTersedia: {
         id: string;
         nama_bank: string;
-        no_rek: number;
+        no_rek: string;
         atas_nama: string;
         keterangan: string;
         allowed_see: boolean;
@@ -27,7 +27,7 @@ export declare const createSaldoHistoryTersediaWorkflow: import("@medusajs/frame
     amountSaldoHistoryTersedia: {
         id: string;
         nama_bank: string;
-        no_rek: number;
+        no_rek: string;
         atas_nama: string;
         keterangan: string;
         allowed_see: boolean;

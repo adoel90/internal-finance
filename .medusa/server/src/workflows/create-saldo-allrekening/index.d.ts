@@ -3,7 +3,7 @@ import { Currencies } from "../../modules/cashflow/types";
 export declare const createSaldoAllRekeningStep1: import("@medusajs/framework/workflows-sdk").StepFunction<ISaldoAllRekeningInput, {
     id: string;
     nama_bank: string;
-    no_rek: number;
+    no_rek: string;
     atas_nama: string;
     keterangan: string;
     allowed_see: boolean;
@@ -35,7 +35,7 @@ export declare const createSaldoHistoryStep: import("@medusajs/framework/workflo
     amountSaldo: {
         id: string;
         nama_bank: string;
-        no_rek: number;
+        no_rek: string;
         atas_nama: string;
         keterangan: string;
         allowed_see: boolean;
@@ -54,7 +54,7 @@ export declare const createSaldoHistoryStep: import("@medusajs/framework/workflo
 export declare const createSaldoAllRekeningWorkflow: import("@medusajs/framework/workflows-sdk").ReturnWorkflow<ISaldoAllRekeningInput, {
     id: string;
     nama_bank: string;
-    no_rek: number;
+    no_rek: string;
     atas_nama: string;
     keterangan: string;
     allowed_see: boolean;

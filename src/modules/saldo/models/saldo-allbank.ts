@@ -1,3 +1,13 @@
+/**
+ * 
+ * 
+ * 
+ * TODO: WILL BE REMOVE DUE TO DEPRECATED
+ * 
+ * 
+ */
+
+
 import { model } from "@medusajs/framework/utils"
 import { Currencies } from "src/modules/cashflow/types"
 
