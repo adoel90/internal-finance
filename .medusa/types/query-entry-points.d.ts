@@ -154,6 +154,8 @@ export type Product = {
   sales_channels: Maybe<Array<Maybe<SalesChannel>>>;
   shipping_profiles_link: Maybe<LinkProductShippingProfile>;
   shipping_profile: Maybe<ShippingProfile>;
+  domain_link: Maybe<LinkDomainDomainProductProduct>;
+  domain: Maybe<Domain>;
 };
 
 export type ProductVariant = {
@@ -190,6 +192,8 @@ export type ProductVariant = {
   order_items: Maybe<Array<Maybe<OrderLineItem>>>;
   digital_product_link: Maybe<LinkDigitalProductDigitalProductProductProductVariant>;
   digital_product: Maybe<DigitalProduct>;
+  domain_link: Maybe<LinkDomainDomainProductProductVariant>;
+  domain: Maybe<Domain>;
 };
 
 export type ProductCategory = {
@@ -512,6 +516,8 @@ export type Customer = {
   carts: Maybe<Array<Maybe<Cart>>>;
   orders: Maybe<Array<Maybe<Order>>>;
   account_holder_link: Maybe<Array<Maybe<LinkCustomerAccountHolder>>>;
+  domain_link: Maybe<LinkDomainDomainCustomerCustomer>;
+  domain: Maybe<Domain>;
 };
 
 export type SalesChannel = {
@@ -1330,6 +1336,8 @@ export type Order = {
   sales_channel: Maybe<SalesChannel>;
   digital_product_order_link: Maybe<LinkDigitalProductDigitalProductOrderOrderOrder>;
   digital_product_order: Maybe<DigitalProductOrder>;
+  domain_link: Maybe<LinkDomainDomainOrderOrder>;
+  domain: Maybe<Domain>;
 };
 
 export enum ReturnStatus {
@@ -2225,6 +2233,27 @@ export type PaymentProof = {
   deleted_at: Maybe<Scalars['DateTime']['output']>;
 };
 
+export type Domain = {
+  __typename?: 'Domain';
+  id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  slug: Scalars['String']['output'];
+  is_active: Scalars['Boolean']['output'];
+  is_premium: Scalars['Boolean']['output'];
+  metadata: Scalars['JSON']['output'];
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
+  customer_link: Maybe<LinkDomainDomainCustomerCustomer>;
+  customer: Maybe<Customer>;
+  order_link: Maybe<LinkDomainDomainOrderOrder>;
+  order: Maybe<Order>;
+  product_link: Maybe<LinkDomainDomainProductProduct>;
+  product: Maybe<Product>;
+  product_variant_link: Maybe<LinkDomainDomainProductProductVariant>;
+  product_variant: Maybe<ProductVariant>;
+};
+
 export type LinkCartPaymentCollection = {
   __typename?: 'LinkCartPaymentCollection';
   cart_id: Scalars['String']['output'];
@@ -2437,6 +2466,50 @@ export type LinkDigitalProductDigitalProductProductProductVariant = {
   digital_product_id: Scalars['String']['output'];
   product_variant_id: Scalars['String']['output'];
   digital_product: Maybe<DigitalProduct>;
+  product_variant: Maybe<Product>;
+  createdAt: Scalars['String']['output'];
+  updatedAt: Scalars['String']['output'];
+  deletedAt: Maybe<Scalars['String']['output']>;
+};
+
+export type LinkDomainDomainCustomerCustomer = {
+  __typename?: 'LinkDomainDomainCustomerCustomer';
+  domain_id: Scalars['String']['output'];
+  customer_id: Scalars['String']['output'];
+  domain: Maybe<Domain>;
+  customer: Maybe<Customer>;
+  createdAt: Scalars['String']['output'];
+  updatedAt: Scalars['String']['output'];
+  deletedAt: Maybe<Scalars['String']['output']>;
+};
+
+export type LinkDomainDomainOrderOrder = {
+  __typename?: 'LinkDomainDomainOrderOrder';
+  domain_id: Scalars['String']['output'];
+  order_id: Scalars['String']['output'];
+  domain: Maybe<Domain>;
+  order: Maybe<Order>;
+  createdAt: Scalars['String']['output'];
+  updatedAt: Scalars['String']['output'];
+  deletedAt: Maybe<Scalars['String']['output']>;
+};
+
+export type LinkDomainDomainProductProduct = {
+  __typename?: 'LinkDomainDomainProductProduct';
+  domain_id: Scalars['String']['output'];
+  product_id: Scalars['String']['output'];
+  domain: Maybe<Domain>;
+  product: Maybe<Product>;
+  createdAt: Scalars['String']['output'];
+  updatedAt: Scalars['String']['output'];
+  deletedAt: Maybe<Scalars['String']['output']>;
+};
+
+export type LinkDomainDomainProductProductVariant = {
+  __typename?: 'LinkDomainDomainProductProductVariant';
+  domain_id: Scalars['String']['output'];
+  product_variant_id: Scalars['String']['output'];
+  domain: Maybe<Domain>;
   product_variant: Maybe<Product>;
   createdAt: Scalars['String']['output'];
   updatedAt: Scalars['String']['output'];
@@ -2676,6 +2749,8 @@ declare module '@medusajs/framework/types' {
     digital_product_orders: DigitalProductOrder
     payment_proof: PaymentProof
     payment_proofs: PaymentProof
+    domain: Domain
+    domains: Domain
     cart_payment_collection: LinkCartPaymentCollection
     cart_payment_collections: LinkCartPaymentCollection
     cart_promotion: LinkCartPromotion
@@ -2714,6 +2789,10 @@ declare module '@medusajs/framework/types' {
     customer_account_holders: LinkCustomerAccountHolder
     digital_product_order_order: LinkDigitalProductDigitalProductOrderOrderOrder
     digital_product_product_variant: LinkDigitalProductDigitalProductProductProductVariant
+    domain_customer: LinkDomainDomainCustomerCustomer
+    domain_order: LinkDomainDomainOrderOrder
+    domain_product: LinkDomainDomainProductProduct
+    domain_product_variant: LinkDomainDomainProductProductVariant
     user_api_usage: LinkUserUserBillingApiUsage
     user_company: LinkUserUserBillingCompany
   }

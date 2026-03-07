@@ -63,6 +63,9 @@ module.exports = defineConfig({
     {
       resolve: "./src/modules/payment-direct-midtrans"
     },
+        {
+      resolve: "./src/modules/domain"
+    },
     // {
     //   resolve: "./src/modules/payment-direct-bsi"
     // },
@@ -135,26 +138,28 @@ module.exports = defineConfig({
       },
     },
     
-    //  {
-    //   resolve: "@medusajs/medusa/cache-redis",
-    //   options: {
-    //     redisUrl: process.env.REDIS_URL,
-    //   },
-    // },
-    // {
-    //   resolve: "@medusajs/medusa/event-bus-redis",
-    //   options: {
-    //     redisUrl: process.env.REDIS_URL,
-    //   },
-    // },
-    // {
-    //   resolve: "@medusajs/medusa/workflow-engine-redis",
-    //   options: {
-    //     redis: {
-    //       url: process.env.REDIS_URL,
-    //     },
-    //   },
-    // },
+    ...(process.env.NODE_ENV === "production" ? [
+      {
+        resolve: "@medusajs/medusa/cache-redis",
+        options: {
+          redisUrl: process.env.REDIS_URL,
+        },
+      },
+      {
+        resolve: "@medusajs/medusa/event-bus-redis",
+        options: {
+          redisUrl: process.env.REDIS_URL,
+        },
+      },
+      {
+        resolve: "@medusajs/medusa/workflow-engine-redis",
+        options: {
+          redis: {
+            url: process.env.REDIS_URL,
+          },
+        },
+      },
+    ] : []),
   ],
   plugins: [
     //   `medusa-fulfillment-manual`,
