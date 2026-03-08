@@ -28,7 +28,7 @@ export const createDomainStep = createStep(
       slug: input.slug,
       is_active: input.is_active,
       is_premium: input.is_premium,
-      metadata: input.metadata,
+      metadata: input.metadata || {},
     })
     return new StepResponse(domain, domain.id)
   },
@@ -123,7 +123,7 @@ export const linkDomainToVariantStep = createStep(
         domain_id: input.domain_id,
       },
       [Modules.PRODUCT]: {
-        variant_id: input.variant_id,
+        product_variant_id: input.variant_id,
       },
     })
     
@@ -138,7 +138,7 @@ export const linkDomainToVariantStep = createStep(
         domain_id: input.domain_id,
       },
       [Modules.PRODUCT]: {
-        variant_id: input.variant_id,
+        product_variant_id: input.variant_id,
       },
     })
   }

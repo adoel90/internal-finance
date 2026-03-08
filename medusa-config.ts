@@ -65,6 +65,9 @@ module.exports = defineConfig({
     },
         {
       resolve: "./src/modules/domain"
+    },        
+    {
+      resolve: "./src/modules/registered-domain-event"
     },
     // {
     //   resolve: "./src/modules/payment-direct-bsi"
@@ -136,6 +139,9 @@ module.exports = defineConfig({
           },
         ],
       },
+    },
+    {
+      resolve: "@medusajs/medusa/event-bus-local"
     },
     
     ...(process.env.NODE_ENV === "production" ? [

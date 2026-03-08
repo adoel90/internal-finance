@@ -2,11 +2,10 @@ import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http"
 import { uploadFilesWorkflow } from "@medusajs/medusa/core-flows"
 import { PAYMENT_PROOF_MODULE } from "src/modules/payment-proof/index"
 import PaymentProofService from "src/modules/payment-proof/service"
+import { Modules } from "@medusajs/framework/utils"
+import { CreateDomainInput } from "src/workflows/create-domain"
 
 export const POST = async (req: MedusaRequest, res: MedusaResponse) => {
-  // console.log("Req headers:", req.headers)
-  // console.log("Req files:", req.files)
-  // console.log("Req body:", req.body)
   const files = req.files as Express.Multer.File[]
 
   console.log("Received files:", req.files)
@@ -36,7 +35,8 @@ export const POST = async (req: MedusaRequest, res: MedusaResponse) => {
   type UploadPaymentProofBody = {
     cart_id?: string
     user_email: string
-  }
+  } & CreateDomainInput
+  
   const body = req.body as UploadPaymentProofBody
 
   const paymentProofs = await Promise.all(
@@ -51,6 +51,17 @@ export const POST = async (req: MedusaRequest, res: MedusaResponse) => {
       })
     })
   )
+
+  // Resolve the Event Bus to emit the domain registration event
+  // const eventBus = req.scope.resolve(Modules.EVENT_BUS)
+
+  // Emit the event to trigger the background domain creation.
+  // We pass the `body` so the subscriber receives the fields (like `name` and `slug`) 
+  // that the frontend sent in the form data.
+  // await eventBus.emit({
+  //   name: "registered-domain-event",
+  //   data: body
+  // })
 
   res.json({ 
     files: result,
