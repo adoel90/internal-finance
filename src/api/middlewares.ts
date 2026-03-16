@@ -125,6 +125,12 @@ export default defineMiddlewares({
       ]
     },
     {
+      matcher: "/store/domains*",
+      middlewares: [
+        authenticate("customer", ["session", "bearer"]),
+      ]
+    },
+    {
       matcher: "/finance*",
       middlewares: [
         (
