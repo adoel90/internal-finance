@@ -140,9 +140,7 @@ module.exports = defineConfig({
         ],
       },
     },
-    {
-      resolve: "@medusajs/medusa/event-bus-local"
-    },
+
     
     ...(process.env.NODE_ENV === "production" ? [
       {
@@ -165,7 +163,11 @@ module.exports = defineConfig({
           },
         },
       },
-    ] : []),
+    ] : [
+      {
+        resolve: "@medusajs/medusa/event-bus-local"
+      },
+    ]),
   ],
   plugins: [
     //   `medusa-fulfillment-manual`,
