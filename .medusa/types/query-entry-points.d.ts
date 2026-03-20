@@ -154,8 +154,8 @@ export type Product = {
   sales_channels: Maybe<Array<Maybe<SalesChannel>>>;
   shipping_profiles_link: Maybe<LinkProductShippingProfile>;
   shipping_profile: Maybe<ShippingProfile>;
-  domain_link: Maybe<LinkDomainDomainProductProduct>;
-  domain: Maybe<Domain>;
+  domain_link: Maybe<Array<Maybe<LinkDomainDomainProductProduct>>>;
+  domains: Maybe<Array<Maybe<Domain>>>;
 };
 
 export type ProductVariant = {
@@ -192,8 +192,8 @@ export type ProductVariant = {
   order_items: Maybe<Array<Maybe<OrderLineItem>>>;
   digital_product_link: Maybe<LinkDigitalProductDigitalProductProductProductVariant>;
   digital_product: Maybe<DigitalProduct>;
-  domain_link: Maybe<LinkDomainDomainProductProductVariant>;
-  domain: Maybe<Domain>;
+  domain_link: Maybe<Array<Maybe<LinkDomainDomainProductProductVariant>>>;
+  domains: Maybe<Array<Maybe<Domain>>>;
 };
 
 export type ProductCategory = {
@@ -516,8 +516,8 @@ export type Customer = {
   carts: Maybe<Array<Maybe<Cart>>>;
   orders: Maybe<Array<Maybe<Order>>>;
   account_holder_link: Maybe<Array<Maybe<LinkCustomerAccountHolder>>>;
-  domain_link: Maybe<LinkDomainDomainCustomerCustomer>;
-  domain: Maybe<Domain>;
+  domain_link: Maybe<Array<Maybe<LinkDomainDomainCustomerCustomer>>>;
+  domains: Maybe<Array<Maybe<Domain>>>;
 };
 
 export type SalesChannel = {
@@ -1336,8 +1336,8 @@ export type Order = {
   sales_channel: Maybe<SalesChannel>;
   digital_product_order_link: Maybe<LinkDigitalProductDigitalProductOrderOrderOrder>;
   digital_product_order: Maybe<DigitalProductOrder>;
-  domain_link: Maybe<LinkDomainDomainOrderOrder>;
-  domain: Maybe<Domain>;
+  domain_link: Maybe<Array<Maybe<LinkDomainDomainOrderOrder>>>;
+  domains: Maybe<Array<Maybe<Domain>>>;
 };
 
 export enum ReturnStatus {

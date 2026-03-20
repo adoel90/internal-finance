@@ -3,6 +3,9 @@ import DomainModule from "../modules/domain"
 import OrderModule from "@medusajs/medusa/order"
 
 export default defineLink(
-  DomainModule.linkable.domain,
+  {
+    linkable: DomainModule.linkable.domain,
+    isList: true,
+  },
   OrderModule.linkable.order
 )
