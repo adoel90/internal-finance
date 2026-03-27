@@ -1,0 +1,20 @@
+[options]
+build_cmd = "npx medusa build && cp -r .medusa/* ./ && cp medusa-config.ts ./.medusa/server/"
+start_cmd = "cd .medusa/server && npm ci --omit=dev && npm run start"
+
+[phases.setup]
+nixPkgs = ["nodejs_20"]
+
+[phases.install]
+cmds = ["npm install"]
+paths = ["/app/node_modules/.bin"]
+cacheDirectories = ["node_modules", ".npm"]
+
+[phases.build]
+cmds = [
+  "npx medusa build",
+  "cp -r .medusa/* ./",
+  "cp medusa-config.ts ./.medusa/server/"
+]
+cacheDirectories = [".medusa"]
+dependsOn = ["install"]
