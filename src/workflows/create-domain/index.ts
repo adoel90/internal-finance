@@ -3,6 +3,7 @@ import {
   StepResponse,
   WorkflowResponse,
   createWorkflow,
+  transform,
 } from "@medusajs/framework/workflows-sdk"
 import { DOMAIN_MODULE } from "../../modules/domain"
 import { Modules, ContainerRegistrationKeys } from "@medusajs/framework/utils"
@@ -184,25 +185,33 @@ export const createDomainWorkflow = createWorkflow(
   (input: CreateDomainInput) => {
     const domain = createDomainStep(input)
     
-    linkDomainToCustomerStep({
-        domain_id: domain.id,
-        customer_id: input.customer_id
-    })
+    linkDomainToCustomerStep(
+      transform({ domain, input }, (data) => ({
+        domain_id: data.domain.id,
+        customer_id: data.input.customer_id
+      }))
+    )
 
-    linkDomainToProductStep({
-        domain_id: domain.id,
-        product_id: input.product_id
-    })
+    linkDomainToProductStep(
+      transform({ domain, input }, (data) => ({
+        domain_id: data.domain.id,
+        product_id: data.input.product_id
+      }))
+    )
 
-    linkDomainToVariantStep({
-        domain_id: domain.id,
-        variant_id: input.variant_id
-    })
+    linkDomainToVariantStep(
+      transform({ domain, input }, (data) => ({
+        domain_id: data.domain.id,
+        variant_id: data.input.variant_id
+      }))
+    )
 
-    linkDomainToOrderStep({
-        domain_id: domain.id,
-        order_id: input.order_id
-    })
+    linkDomainToOrderStep(
+      transform({ domain, input }, (data) => ({
+        domain_id: data.domain.id,
+        order_id: data.input.order_id
+      }))
+    )
 
     return new WorkflowResponse(domain)
   }

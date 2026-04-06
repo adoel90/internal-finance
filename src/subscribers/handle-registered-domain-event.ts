@@ -9,7 +9,7 @@ export default async function handleRegisteredDomainEvent({
   container,
 }: SubscriberArgs<any>) {
   console.log("=== SUBSCRIBER TRIGGERED: registered-domain-event ===");
-  console.log("Event Data Received:", JSON.stringify(data, null, 2));
+  // console.log("Event Data Received:", JSON.stringify(data, null, 2));
 
   try {
     // We invoke the workflow directly using the container
