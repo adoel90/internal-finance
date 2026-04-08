@@ -24,6 +24,15 @@ export const createDomainStep = createStep(
   "create-domain-step",
   async (input: CreateDomainInput, { container }) => {
     const domainModuleService: any = container.resolve(DOMAIN_MODULE)
+    
+    const existingDomains = await domainModuleService.listDomains({
+      name: input.name
+    })
+
+    if (existingDomains && existingDomains.length > 0) {
+      throw new Error(`Domain ${input.name} is already registered.`)
+    }
+
     const domain = await domainModuleService.createDomains({
       name: input.name,
       slug: input.slug,

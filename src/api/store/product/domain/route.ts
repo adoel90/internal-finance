@@ -1,4 +1,5 @@
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http"
+import { DOMAIN_MODULE } from "../../../../modules/domain"
 
 export const GET = async (req: MedusaRequest, res: MedusaResponse) => {
   try {
@@ -6,6 +7,18 @@ export const GET = async (req: MedusaRequest, res: MedusaResponse) => {
 
     if (!name) {
       return res.status(400).json({ error: "Domain name is required" })
+    }
+
+    // Check internal availability first
+    const domainModuleService: any = req.scope.resolve(DOMAIN_MODULE)
+    if (domainModuleService) {
+      const existingDomains = await domainModuleService.listDomains({
+        name: name
+      })
+      
+      if (existingDomains && existingDomains.length > 0) {
+        return res.json({ available: false })
+      }
     }
 
     const vercelToken = process.env.VERCEL_PUBLIC_TOKEN
