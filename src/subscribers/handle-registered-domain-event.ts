@@ -46,12 +46,26 @@ export default async function handleRegisteredDomainEvent({
      const customerModuleService = container.resolve(Modules.CUSTOMER)
   const authModuleService = container.resolve(Modules.AUTH)
 
-  const { email, first_name, last_name } = data
+  const { email, first_name, last_name, customer_id } = data
 
   // 1. Find existing customers
-  const existingCustomers = await customerModuleService.listCustomers({
-    email,
-  })
+  let existingCustomers: any[] = []
+
+  if (customer_id) {
+    // If a specific customer_id was provided, retrieve that customer directly
+    const cust = await customerModuleService
+      .retrieveCustomer(customer_id)
+      .catch(() => null)
+
+    if (cust) {
+      existingCustomers = [cust]
+    }
+  } else if (email) {
+    // Otherwise, try to find customers by email
+    existingCustomers = await customerModuleService.listCustomers({
+      email,
+    })
+  }
 
   let customer
 
