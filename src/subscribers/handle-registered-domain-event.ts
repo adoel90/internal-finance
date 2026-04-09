@@ -15,28 +15,90 @@ export default async function handleRegisteredDomainEvent({
   try {
     // If there is no customer associated but we have an order,
     // we should create a new customer (or use an existing one by email).
-    if (!data.customer_id && data.order_id) {
-      const orderModuleService = container.resolve(Modules.ORDER)
-      const customerModuleService = container.resolve(Modules.CUSTOMER)
+    // if (!data.customer_id && data.order_id) {
+    //   const orderModuleService = container.resolve(Modules.ORDER)
+    //   const customerModuleService = container.resolve(Modules.CUSTOMER)
       
-      const order = await orderModuleService.retrieveOrder(data.order_id)
+    //   const order = await orderModuleService.retrieveOrder(data.order_id)
       
-      if (order.email) {
-        const existingCustomers = await customerModuleService.listCustomers({
-          email: order.email
-        })
+    //   if (order.email) {
+    //     const existingCustomers = await customerModuleService.listCustomers({
+    //       email: order.email
+    //     })
         
-        if (existingCustomers && existingCustomers.length > 0) {
-          data.customer_id = existingCustomers[0].id
-        } else {
-          const customer = await customerModuleService.createCustomers({
-            email: order.email,
-            has_account: false,
-          })
-          data.customer_id = customer.id
-        }
-      }
+    //     if (existingCustomers && existingCustomers.length > 0) {
+    //       data.customer_id = existingCustomers[0].id
+    //       await customerModuleService.updateCustomers(data.customer_id, {
+    //         has_account: true,
+    //       })
+    //     } else {
+    //       const customer = await customerModuleService.createCustomers({
+    //         email: order.email,
+    //         has_account: false,
+    //       })
+    //       data.customer_id = customer.id
+    //     }
+    //   }
+    // }
+
+
+
+     const customerModuleService = container.resolve(Modules.CUSTOMER)
+  const authModuleService = container.resolve(Modules.AUTH)
+
+  const { email, first_name, last_name } = data
+
+  // 1. Find existing customers
+  const existingCustomers = await customerModuleService.listCustomers({
+    email,
+  })
+
+  let customer
+
+  if (!existingCustomers || existingCustomers.length === 0) {
+    // 🆕 Create customer WITH account
+    const created = await customerModuleService.createCustomers([
+      {
+        email,
+        first_name,
+        last_name,
+        has_account: true,
+      },
+    ])
+
+    customer = created[0]
+
+    console.log(`✅ Customer created with account: ${customer.id}`)
+  } else {
+    customer = existingCustomers[0]
+
+    console.log(`ℹ️ Customer found: ${customer.id}`)
+
+    // ⚠️ DO NOT update has_account → not allowed
+    // Instead, ensure auth identity exists
+
+    // Cast to any to satisfy the expected filter type for listAuthIdentities
+    const selector = { user_id: customer.id } as any
+    const identities = await authModuleService.listAuthIdentities(selector)
+
+    if (!identities || identities.length === 0) {
+      // 🔐 Register auth identity (this is the REAL "account creation")
+      await authModuleService.createAuthIdentities([
+        {
+          user_id: customer.id,
+          provider: "emailpass",
+          entity_id: email,
+          provider_metadata: {
+            email,
+          },
+        },
+      ] as any)
+
+      console.log(`🔐 Auth identity created for customer ${customer.id}`)
+    } else {
+      console.log(`✅ Customer already has auth identity`)
     }
+  }
 
     // We invoke the workflow directly using the container
     // We assume the event `data` matches the expected input of the workflow
