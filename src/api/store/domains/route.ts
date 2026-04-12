@@ -9,6 +9,9 @@ export async function POST(
 ) {
   const customerId = req.auth_context?.actor_id
 
+  //TODO: mesti check ini
+  console.log("Customer ID:", customerId);
+  console.log("Request Body:", req.body);
   if (!customerId) {
     return res.status(401).json({ message: "Unauthorized" })
   }

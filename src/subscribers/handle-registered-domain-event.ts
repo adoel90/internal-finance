@@ -48,6 +48,8 @@ export default async function handleRegisteredDomainEvent({
 
   const { email, first_name, last_name, customer_id } = data
 
+  console.log("DATA PAYLOAD REGISTRED DOMAIN : ", data);
+
   // 1. Find existing customers
   let existingCustomers: any[] = []
 
@@ -92,14 +94,21 @@ export default async function handleRegisteredDomainEvent({
     // Instead, ensure auth identity exists
 
     // Cast to any to satisfy the expected filter type for listAuthIdentities
-    const selector = { user_id: customer.id } as any
+    // const selector = { user_id: customer.id } as any
+    const selector = {
+      app_metadata: {
+        customer_id: customer.id,
+      },
+    }
+
     const identities = await authModuleService.listAuthIdentities(selector)
 
     if (!identities || identities.length === 0) {
+
       // 🔐 Register auth identity (this is the REAL "account creation")
       await authModuleService.createAuthIdentities([
         {
-          user_id: customer.id,
+          customer_id: customer.id,
           provider: "emailpass",
           entity_id: email,
           provider_metadata: {

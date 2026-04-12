@@ -8,6 +8,9 @@ export default async function orderPlacedHandler({
 }: SubscriberArgs<{ id: string }>) {
   const logger = container.resolve("logger")
 
+  console.log("=== SUBSCRIBER TRIGGERED: order.placed ===")
+  console.log("Payload data order.placed : ", data)
+
   logger.info(`Processing order.placed event for order ID: ${data.id}`)
 
   // 1. Resolve the Order Module Service
