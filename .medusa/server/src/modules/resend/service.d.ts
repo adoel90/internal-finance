@@ -1,3 +1,4 @@
+import React from 'react';
 import { AbstractNotificationProviderService } from "@medusajs/framework/utils";
 import { Logger, ProviderSendNotificationDTO, ProviderSendNotificationResultsDTO } from "@medusajs/framework/types";
 type ResendOptions = {
