@@ -1,6 +1,7 @@
 import { SubscriberArgs, type SubscriberConfig } from "@medusajs/framework"
 import { Modules } from "@medusajs/framework/utils"
 import { CreateDomainInput } from "../workflows/create-domain"
+import { sendOrderConfirmationWorkflow } from "../workflows/send-order-confirmation"
 
 export default async function orderPlacedHandler({
   event: { data },
@@ -57,6 +58,23 @@ export default async function orderPlacedHandler({
   })
 
   logger.info(`Successfully emitted registered-domain-event for order ${data.id}`)
+
+
+
+  /**
+   * 
+   * 
+   * * OPTIONAL: Trigger the sendOrderConfirmationWorkflow to send an email confirmation to the customer.
+   *   - This assumes that the order.placed event does not already trigger an email, or you want to send a custom email.
+   *   - If your Medusa setup already sends an order confirmation email on order.placed, you can skip this step to avoid duplicate emails.
+   */
+  await sendOrderConfirmationWorkflow(container)
+    .run({
+      input: {
+        id: data.id,
+      },
+    })
+   
 }
 
 export const config: SubscriberConfig = {

@@ -129,14 +129,23 @@ module.exports = defineConfig({
       resolve: "@medusajs/notification",
       options: {
         providers: [
+          // {
+          //   resolve: "@medusajs/notification-local",
+          //   id: "local",
+          //   options: {
+          //     name: "Local Notification Provider",
+          //     channels: ["email"],
+          //   },
+          // },
           {
-            resolve: "@medusajs/notification-local",
-            id: "local",
+            resolve: "./src/modules/resend",
+            id: "resend",
             options: {
-              name: "Local Notification Provider",
               channels: ["email"],
+              api_key: process.env.EMAIL_PROVIDER_APIKEY,
+              from: process.env.EMAIL_SENDER
             },
-          },
+          }
         ],
       },
     },
