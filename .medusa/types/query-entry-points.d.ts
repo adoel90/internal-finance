@@ -2015,7 +2015,7 @@ export type SaldoAllbank = {
   __typename?: 'SaldoAllbank';
   id: Scalars['ID']['output'];
   nama_bank: Scalars['String']['output'];
-  no_rek: Scalars['Int']['output'];
+  no_rek: Scalars['String']['output'];
   atas_nama: Scalars['String']['output'];
   keterangan: Maybe<Scalars['String']['output']>;
   allowed_see: Maybe<Scalars['Boolean']['output']>;
