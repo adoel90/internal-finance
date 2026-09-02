@@ -36,9 +36,9 @@ module.exports = defineConfig({
     {
       resolve: "./src/modules/role",
     },  
-    {
-      resolve: "./src/modules/user",
-    },    
+    // {
+    //   resolve: "./src/modules/user",
+    // },    
     {
       resolve: "./src/modules/staff",
     },

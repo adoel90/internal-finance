@@ -1621,9 +1621,11 @@ export type ProviderIdentity = {
 export type User = {
   __typename?: 'User';
   id: Scalars['ID']['output'];
-  name: Scalars['String']['output'];
+  first_name: Maybe<Scalars['String']['output']>;
+  last_name: Maybe<Scalars['String']['output']>;
   email: Scalars['String']['output'];
-  role_id: Scalars['String']['output'];
+  avatar_url: Maybe<Scalars['String']['output']>;
+  metadata: Maybe<Scalars['JSON']['output']>;
   created_at: Scalars['DateTime']['output'];
   updated_at: Scalars['DateTime']['output'];
   deleted_at: Maybe<Scalars['DateTime']['output']>;
@@ -1631,6 +1633,19 @@ export type User = {
   api_usage: Maybe<ApiUsage>;
   company_link: Maybe<LinkUserUserBillingCompany>;
   company: Maybe<Company>;
+};
+
+export type Invite = {
+  __typename?: 'Invite';
+  id: Scalars['ID']['output'];
+  email: Scalars['String']['output'];
+  accepted: Scalars['Boolean']['output'];
+  token: Scalars['String']['output'];
+  expires_at: Scalars['DateTime']['output'];
+  metadata: Maybe<Scalars['JSON']['output']>;
+  created_at: Scalars['DateTime']['output'];
+  updated_at: Scalars['DateTime']['output'];
+  deleted_at: Maybe<Scalars['DateTime']['output']>;
 };
 
 export enum GeoZoneType {
@@ -2673,6 +2688,8 @@ declare module '@medusajs/framework/types' {
     provider_identities: ProviderIdentity
     user: User
     users: User
+    invite: Invite
+    invites: Invite
     fulfillment_address: any
     fulfillment_addresses: any
     fulfillment_item: FulfillmentItem
