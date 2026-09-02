@@ -1,0 +1,18 @@
+services:
+  medusa:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: nf_finance_backend
+    restart: unless-stopped
+
+    ports:
+      - "9000:9000"
+
+    env_file:
+      - .env
+
+    volumes:
+      - .:/server
+      - /server/node_modules
